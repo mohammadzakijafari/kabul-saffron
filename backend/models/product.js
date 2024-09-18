@@ -4,13 +4,13 @@ const productSchema = new mongoose.Schema(
   {
     productName: {
       type: String,
-      required: [true, 'Please provide a title for the listing'],
+      required: [true, 'Please provide a title for the product'],
       trim: true,
       maxlength: [100, 'Title cannot be more than 100 characters'],
     },
     description: {
       type: String,
-      required: [true, 'Please provide a description for the listing'],
+      required: [true, 'Please provide a description for the product'],
       maxlength: [1000, 'Description cannot be more than 1000 characters'],
     },
     regularPrice: {
@@ -47,7 +47,7 @@ const productSchema = new mongoose.Schema(
     addedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: [true, 'Listing must have an owner'],
+      required: [true, 'Product must have an owner'],
     },
     isAvailable: {
       type: Boolean,

@@ -30,20 +30,20 @@ const productSchema = new mongoose.Schema(
     productFeature: {
         type: String,
         required: true,
-        enum: ["featured", "bestSelling", "firstQuality", "secondQuality"], // You can add more types
+        enum: ["featured", "bestSeller", "firstQuality", "secondQuality"], // You can add more types
       },
-    // images: {
-    //   type: [String],
-    //   validate: [
-    //     {
-    //       validator: function (v) {
-    //         return v.length <= 4;
-    //       },
-    //       message: 'You can upload a maximum of 4 images',
-    //     },
-    //   ],
-    //   required: [true, 'Please provide at least one image for the listing'],
-    // },
+    images: {
+      type: [String],
+      validate: [
+        {
+          validator: function (v) {
+            return v.length <= 4;
+          },
+          message: 'You can upload a maximum of 4 images',
+        },
+      ],
+      required: [true, 'Please provide at least one image for the listing'],
+    },
     addedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

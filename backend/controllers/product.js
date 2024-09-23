@@ -27,7 +27,18 @@ const getSingleProduct = async (req, res) => {
 // Creating a Listing to the DB
 const createProduct = async (req, res) => {
     try {
-        let clientData = req.body;
+        const {
+            productName,
+            description,
+            regularPrice,
+            discountPrice,  
+            productFeature,
+            addedBy,
+            isAvailable,
+        } = req.body;
+
+        // let clientData = req.body;
+        addedBy = req.user.id;
         const image1 = req.files.image1 &&  req.files.image1[0];
         const image2 = req.files.image2 &&  req.files.image2[0];
         const image3 = req.files.image3 &&  req.files.image3[0];
@@ -43,7 +54,15 @@ const createProduct = async (req, res) => {
             })
         )
 
-        // console.log(clientData);
+        const productData = {
+            productName,
+            description,
+            regularPrice,
+            discountPrice,
+            productFeature,
+            addedBy,
+            images: imageUrl,
+        }
         console.log("Images ------", imageUrl);
         res.json({});
         // console.log(req.user.id);
@@ -52,8 +71,8 @@ const createProduct = async (req, res) => {
         //     ...clientData,
         //     addedBy
         // };
-        // let newProduct = await Product.create(CompleteProductData);
-        // res.status(200).send({ msg: "New Product Created Successfully", newProduct });
+        let newProduct = await Product.create(productData);
+        res.status(200).send({ msg: "New Product Created Successfully", newProduct });
     } catch (error) {
         console.log(error);
         res.status(500).send({msg: "Internal Server Error"});

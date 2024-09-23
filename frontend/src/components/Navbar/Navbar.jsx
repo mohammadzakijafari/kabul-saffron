@@ -44,7 +44,9 @@ const Navbar = () => {
                                     <NavLink to='/' className= {linkClass}>
                                         HOME
                                     </NavLink>
-                                    
+                                    <NavLink to='/dashboard' className= {linkClass}>
+                                        Dashboard
+                                    </NavLink>
                                     <NavLink to='/login' className= {linkClass} onClick = { handleLogout }>
                                         LOG OUT
                                     </NavLink>

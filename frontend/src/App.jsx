@@ -6,6 +6,7 @@ import Navbar from './components/Navbar/Navbar';
 import SignUp from './components/SignUp';
 import ProtectedRoutes from './utils/ProtectedRoutes';
 import Dashboard from './pages/Dashboard';
+import AddProduct from './components/Dashboard/AddProduct';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
           <Route element = { <ProtectedRoutes /> }>
             <Route path = '/products' element = { <Home /> } />
             <Route path='/dashboard' element = { <Dashboard /> } />
+            <Route path='/add-product' element = { <AddProduct /> } />
             <Route path='/sign-up' element = { <SignUp /> } />
           </Route>
         </Routes>

@@ -44,11 +44,11 @@ const productSchema = new mongoose.Schema(
       ],
       required: [true, 'Please provide at least one image for the listing'],
     },
-    addedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: [true, 'Product must have an owner'],
-    },
+    // addedBy: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "User",
+    //   required: [true, 'Product must have an owner'],
+    // },
     isAvailable: {
       type: Boolean,
       default: true,

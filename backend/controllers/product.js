@@ -33,19 +33,18 @@ const createProduct = async (req, res) => {
             regularPrice,
             discountPrice,  
             productFeature,
-            addedBy,
             isAvailable,
         } = req.body;
 
         // let clientData = req.body;
-        addedBy = req.user.id;
+        //addedBy = req.user.id;
         const image1 = req.files.image1 &&  req.files.image1[0];
         const image2 = req.files.image2 &&  req.files.image2[0];
         const image3 = req.files.image3 &&  req.files.image3[0];
         const image4 = req.files.image4 &&  req.files.image4[0];
 
         const images = [image1, image2, image3, image4].filter((image) => image !== undefined);
-
+        console.log(images);
         let imageUrl = await Promise.all(
             images.map( async(image) => {
                 let result = await cloudinary.uploader.upload(image.path, {resource_type: 'image'});
@@ -60,11 +59,10 @@ const createProduct = async (req, res) => {
             regularPrice,
             discountPrice,
             productFeature,
-            addedBy,
+            isAvailable,
             images: imageUrl,
         }
         console.log("Images ------", imageUrl);
-        res.json({});
         // console.log(req.user.id);
         // let addedBy = req.user.id;
         // let CompleteProductData = {

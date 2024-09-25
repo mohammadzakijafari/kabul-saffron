@@ -6,10 +6,10 @@ const uri = "http://localhost:3000/products";
 
 const AddProduct = () => {
     // Declaring state variable for each image
-    const [image1, setImage1] = useState(false);
-    const [image2, setImage2] = useState(false);
-    const [image3, setImage3] = useState(false);
-    const [image4, setImage4] = useState(false);
+    const [image1, setImage1] = useState("");
+    const [image2, setImage2] = useState("");
+    const [image3, setImage3] = useState("");
+    const [image4, setImage4] = useState("");
 
     // Declaring product state variable with multiple fields
     const [product, setProduct] = useState({
@@ -25,19 +25,31 @@ const AddProduct = () => {
     // Handle input change when user enters product's value
     function handleChange (e) {
         const {name, value} = e.target;
-        setProperty({...property, [name]: value, });
+        setProduct({...product, [name]: value, });
     }
 
     let newProduct = {
-        
+        ...product,
+        productFeature,
     }
     // Function to add a new Product
     async function addNewProduct (e) {
         e.preventDefault();
         try {
-        let res = await axios.post(`${uri}/create`);
-        alert(res.data.msg);
-        console.log(res.data);
+            let formData = new FormData();
+            formData.append("productName", product.productName);
+            formData.append("description", product.description);
+            formData.append("regularPrice", product.regularPrice);
+            formData.append("discountPrice", product.discountPrice);
+            formData.append("productFeature", productFeature);
+            image1 && formData.append("image1", image1);
+            image2 && formData.append("image2", image2);
+            image3 && formData.append("image3", image3);
+            image4 && formData.append("image4", image4);
+            let res = await axios.post(`${uri}/create`, formData);
+            alert(res.data.msg);
+            console.log(res.data);
+            formData = "";
         } catch (error) {
             console.log(error);
             console.log("Connection to Server Problem");

@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
+import { IoSearchOutline } from "react-icons/io5";
+import { MdAccountCircle } from "react-icons/md";
+import { FaCartArrowDown } from "react-icons/fa";
 
 const Navbar = () => {
     let token = localStorage.getItem("token");
@@ -26,10 +29,10 @@ const Navbar = () => {
     };
   return (
     <div>
-        <nav className='bg-indigo-700 border-b border-indigo-500'>
+        <nav className='bg-red-700 border-b border-red-500'>
             <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
                 <div className='flex h-20 items-center justify-between'>
-                    <div className='flex flex-1 items-center justify-center'>
+                    <div className='flex flex-1 items-center justify-between'>
                         <NavLink className='flex flex-shrink-0 items-center mr-4' to='/'>
                             <img className='h-10 w-auto' src={logo} alt='React Jobs' />
                             <span className='hidden md:block text-white text-2xl font-bold ml-2'>
@@ -43,6 +46,12 @@ const Navbar = () => {
                                 <>
                                     <NavLink to='/' className= {linkClass}>
                                         HOME
+                                    </NavLink>
+                                    <NavLink to='/products' className= {linkClass}>
+                                        Products
+                                    </NavLink>
+                                    <NavLink to='/recipe' className= {linkClass}>
+                                        Recipe
                                     </NavLink>
                                     <NavLink to='/dashboard' className= {linkClass}>
                                         Dashboard
@@ -63,49 +72,25 @@ const Navbar = () => {
                             </div>
                         </div>
 
-                        {token ? 
-                        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-                            <div className="relative flex h-16 items-center justify-between">
-                                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                                <div className="relative">
-                                    <div className="flex justify-center items-center gap-5">
-                                        <div>
-                                            <button
-                                            type="button"
-                                            className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                                            id="user-menu-button"
-                                            aria-expanded={menuVisible}
-                                            aria-haspopup="true"
-                                            onClick={toggleMenu} >
-                                            <span className="absolute -inset-1.5"></span>
-                                            <span className="sr-only"> Open user menu </span>
-                                            <img
-                                                className="h-8 w-8 rounded-full"
-                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                                            </button>
-                                        </div>
-                                    {/* <div className="">
-                                        {token ? <h1 className='text-white'> {decodedToken.username} </h1>
-                                        : <> </>}
-                                        
-                                    </div>     */}
+                        {/* User Profile, Search and Cart Section  */}
+                        <div className='flex items-center gap-6'>
+                            <IoSearchOutline size={40} color='white' className='cursor-pointer' />
+                            <div className='group relative'>
+                                <MdAccountCircle size={40} color='white' className='cursor-pointer' />
+                                <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
+                                    <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-700 rounded'>
+                                        <p className='cursor-pointer hover:text-black'> My Profile </p>
+                                        <p className='cursor-pointer hover:text-black'> Orders </p>
+                                        <p className='cursor-pointer hover:text-black'> Logout </p>
                                     </div>
-
-                                    <div id="user-menu" className={`${ menuVisible ? "" : "hidden" } absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
-                                    role="menu"
-                                    aria-orientation="vertical"
-                                    aria-labelledby="user-menu-button"
-                                    tabIndex="-1">
-
-                                    <NavLink to = "/profile" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-0"> Your Profile </NavLink>
-                                    <NavLink to = "/editProfile" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-1"> Edit Profile </NavLink>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2"> Sign out </a>
-                                    </div>
-                                </div>
                                 </div>
                             </div>
+                            <NavLink to = '/cart' className = 'relative'>
+                                <FaCartArrowDown size={40} color='white' />
+                                <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[10px]'> 10 </p>
+                             </NavLink>
                         </div>
-                        : <> </>}
+
                     </div>
                 </div>
             </div>

@@ -44,7 +44,7 @@ const createProduct = async (req, res) => {
         const image4 = req.files.image4 &&  req.files.image4[0];
 
         const images = [image1, image2, image3, image4].filter((image) => image !== undefined);
-        console.log(images);
+        // console.log(images);
         let imageUrl = await Promise.all(
             images.map( async(image) => {
                 let result = await cloudinary.uploader.upload(image.path, {resource_type: 'image'});
@@ -62,7 +62,7 @@ const createProduct = async (req, res) => {
             isAvailable,
             images: imageUrl,
         }
-        console.log("Images ------", imageUrl);
+        // console.log("Images ------", imageUrl);
         // console.log(req.user.id);
         // let addedBy = req.user.id;
         // let CompleteProductData = {

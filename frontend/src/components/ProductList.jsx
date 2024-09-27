@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
+import { ProductContext } from '../context/ProductContext'
 
 const ProductList = ({ product }) => {
+    const { currency } = useContext(ProductContext);
   return (
     <div className="group relative">
         <NavLink to={`/products/:${product._id}`}>
@@ -17,7 +19,7 @@ const ProductList = ({ product }) => {
                     </h3>
                     <p className="mt-1 text-sm text-gray-500"> { product.productFeature } </p>
                 </div>
-                <p className="text-sm font-medium text-gray-900"> ${ product.regularPrice } </p>
+                <p className="text-sm font-medium text-gray-900"> {currency}{ product.regularPrice } </p>
             </div>
         </NavLink>
       </div>

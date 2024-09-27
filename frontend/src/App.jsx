@@ -9,27 +9,30 @@ import AddProduct from './components/Dashboard/AddProduct';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import Recipe from './pages/Recipe';
+import ProductContextProvider from './context/ProductContext';
 
 function App() {
 
   return (
     <div>
       <BrowserRouter>
-      <Navbar />
-        <Routes>
-          <Route path='/' element = { <Home /> } />
-          <Route path='/login' element = { <Login /> } />
-          
+        <ProductContextProvider>
+          <Navbar />
+          <Routes>
+            <Route path='/' element = { <Home /> } />
+            <Route path='/login' element = { <Login /> } />
+            
 
-          <Route element = { <ProtectedRoutes /> }>
-            <Route path = '/' element = { <Home /> } />
-            <Route path = '/products' element = { <Products /> } />
-            <Route path = '/recipe' element = { <Recipe /> } />
-            <Route path='/dashboard' element = { <Dashboard /> } />
-            <Route path='/add-product' element = { <AddProduct /> } />
-            <Route path='/sign-up' element = { <SignUp /> } />
-          </Route>
-        </Routes>
+            <Route element = { <ProtectedRoutes /> }>
+              <Route path = '/' element = { <Home /> } />
+              <Route path = '/products' element = { <Products /> } />
+              <Route path = '/recipe' element = { <Recipe /> } />
+              <Route path='/dashboard' element = { <Dashboard /> } />
+              <Route path='/add-product' element = { <AddProduct /> } />
+              <Route path='/sign-up' element = { <SignUp /> } />
+            </Route>
+          </Routes>
+        </ProductContextProvider>
       </BrowserRouter>
     </div>
   )

@@ -146,11 +146,11 @@ const AddProduct = () => {
                 value = {productFeature}
                 onChange = {(e) => setProductFeature(e.target.value)}
               >
-                <option value='featured'> Select Zaffron Feature </option>
+                <option value=''> Select Zaffron Feature </option>
                 <option value='featured'> Featured </option>
-                <option value='best-seller'> Best Seller </option>
-                <option value='first-quality'> First Quality </option>
-                <option value='second-quality'> Second Quality </option>
+                <option value='bestSeller'> Best Seller </option>
+                <option value='firstQuality'> First Quality </option>
+                <option value='secondSuality'> Second Quality </option>
               </select>
             </div>
 

@@ -6,7 +6,7 @@ const ProductList = ({ product }) => {
     const { currency } = useContext(ProductContext);
   return (
     <div className="group relative">
-        <NavLink to={`/products/:${product._id}`}>
+        <NavLink to={`/products/${product._id}`}>
             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                 <img src= { product.images[0] } alt="Product Image" className="h-full w-full object-cover object-center lg:h-full lg:w-full" />
             </div>

@@ -11,6 +11,8 @@ import Products from './pages/Products';
 import Recipe from './pages/Recipe';
 import ProductContextProvider from './context/ProductContext';
 import SingleProduct from './pages/SingleProduct';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -18,6 +20,7 @@ function App() {
     <div>
       <BrowserRouter>
         <ProductContextProvider>
+          <ToastContainer />
           <Navbar />
           <Routes>
             <Route path='/' element = { <Home /> } />

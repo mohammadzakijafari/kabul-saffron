@@ -3,6 +3,10 @@ import { ProductContext } from '../context/ProductContext'
 import { useParams } from 'react-router-dom';
 import { FaStar } from "react-icons/fa";
 import { FaStarHalfAlt } from "react-icons/fa";
+import axios from 'axios';
+import { toast } from 'react-toastify';
+
+const uri = "http://localhost:3000/orders/create";
 
 const SingleProduct = () => {
     let { id } = useParams();
@@ -10,8 +14,8 @@ const SingleProduct = () => {
     const { products, currency } = useContext(ProductContext);
     const [productData, setProductData] = useState(false);
     const [image, setImage] = useState('');
-    const [price, setPrice] = useState("");
     const [quantity, setQuantity] = useState("1");
+    let totalPrice = productData.regularPrice;
 
     const getSingleProductData = async () => {
         products.map((product) => {
@@ -24,14 +28,32 @@ const SingleProduct = () => {
         });
     }
 
+    useEffect(() => {
+        getSingleProductData();
+    }, [id]);
+
     /* ------------------ Handling Quantity Function --------------------- */
     function handleQuantity (e) {
         setQuantity(e.target.value);
     }
 
-    useEffect(() => {
-        getSingleProductData();
-    }, [id]);
+    let productId = id;
+    let orderData = {
+        productId,
+        quantity,
+        totalPrice,
+    }
+    /* ------------------ Function to add new order to database  --------------------- */
+    async function addNewOrder(e) {
+        e.preventDefault();
+        try {
+            let res = await axios.post(`${uri}`, orderData)
+            toast.success(res.data.msg);
+            console.log(res.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
     
     return productData ? (
     <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100'>
@@ -96,7 +118,7 @@ const SingleProduct = () => {
                     />
                 </div>
 
-                <button className='bg-red-700 text-white mt-10 px-8 py-3 text-sm active:bg-red-600 rounded'> ADD TO CART </button>
+                <button onClick = { addNewOrder } className='bg-red-700 text-white mt-10 px-8 py-3 text-sm active:bg-red-600 rounded'> ADD TO CART </button>
                 <hr className='mt-8 sm:w-4/5' />
                 <div className='text-gray-500 text-m mt-5 flex flex-col gap-1'>
                     <p> 100% Original Product </p>

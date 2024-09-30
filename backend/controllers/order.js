@@ -25,11 +25,22 @@ const createOrder = async (req, res) => {
         }
 
         // Preparing final order data to be inserted to database
-        const newOrder = {
-            
+        const newOrderData = {
+            currentUser,
+            products: {
+                productId,
+                quantity,
+            },
+            totalPrice,
         }
+
+        let newOrder = await Order.create(newOrderData);
+        res.status(200).send({msg: "Order created successfully", newOrder});
 
     } catch (error) {
         console.log(error);
+        res.status(500).send({msg: "Internal Server Error"});
     }
-}
+};
+
+module.exports = { createOrder };

@@ -12,6 +12,7 @@ app.use(cors());
 
 app.use("/", require("./routers/user"));
 app.use("/", require("./routers/product"));
+app.use("/", require("./routers/order"));
 
 app.listen(port, () => {
     console.log(`App is listening on ${port}`);

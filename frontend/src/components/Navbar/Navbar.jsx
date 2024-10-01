@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import { IoSearchOutline } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
 import { FaCartArrowDown } from "react-icons/fa";
+import { ProductContext } from '../../context/ProductContext';
 
 const Navbar = () => {
     let token = localStorage.getItem("token");
+    const { orderCount } = useContext(ProductContext);
     const navigate = useNavigate();
 
     // Navbar Active Menu Control
@@ -85,9 +87,9 @@ const Navbar = () => {
                                     </div>
                                 </div>
                             </div>
-                            <NavLink to = '/cart' className = 'relative'>
+                            <NavLink to = '/orders' className = 'relative'>
                                 <FaCartArrowDown size={40} color='white' />
-                                <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[10px]'> 10 </p>
+                                <p className='absolute right-[-5px] bottom-[-5px] w-6 text-center leading-6 bg-black text-white aspect-square rounded-full text-[12px]'> { orderCount } </p>
                              </NavLink>
                         </div>
 

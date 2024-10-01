@@ -9,9 +9,10 @@ import { toast } from 'react-toastify';
 const uri = "http://localhost:3000/orders/create";
 
 const SingleProduct = () => {
+    let token = localStorage.getItem("token");
     let { id } = useParams();
     console.log("product Id = " + id);
-    const { products, currency } = useContext(ProductContext);
+    let { products, currency, orderCount } = useContext(ProductContext);
     const [productData, setProductData] = useState(false);
     const [image, setImage] = useState('');
     const [quantity, setQuantity] = useState("1");
@@ -47,13 +48,24 @@ const SingleProduct = () => {
     async function addNewOrder(e) {
         e.preventDefault();
         try {
-            let res = await axios.post(`${uri}`, orderData)
-            toast.success(res.data.msg);
-            console.log(res.data);
+            if (token) {
+                let res = await axios.post(`${uri}`, orderData, {
+                    headers: { Authorization: `Bearer ${token}`}
+                })
+                toast.success(res.data.msg);
+                console.log(res.data);
+                orderCount = res.data.orderCount;
+                console.log("Order Count -------------- ", res.data.orderCount);
+            } else {
+                toast.error("Before placing orders, you have to first login");
+                return;
+            }
+            
         } catch (error) {
             console.log(error);
         }
     }
+    
     
     return productData ? (
     <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100'>

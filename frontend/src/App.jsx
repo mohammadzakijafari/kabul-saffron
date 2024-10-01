@@ -13,6 +13,7 @@ import ProductContextProvider from './context/ProductContext';
 import SingleProduct from './pages/SingleProduct';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Orders from './pages/Orders';
 
 function App() {
 
@@ -25,15 +26,14 @@ function App() {
           <Routes>
             <Route path='/' element = { <Home /> } />
             <Route path='/login' element = { <Login /> } />
-            
+            <Route path = '/' element = { <Home /> } />
+            <Route path = '/products' element = { <Products /> } />
+            <Route path='/products/:id' element = { <SingleProduct /> } />
 
             <Route element = { <ProtectedRoutes /> }>
-              <Route path = '/' element = { <Home /> } />
-              <Route path = '/products' element = { <Products /> } />
-              <Route path='/products/:id' element = { <SingleProduct /> } />
               <Route path = '/recipe' element = { <Recipe /> } />
               <Route path='/dashboard' element = { <Dashboard /> } />
-              <Route path='/add-product' element = { <AddProduct /> } />
+              <Route path='/orders' element = { <Orders /> } />
               <Route path='/sign-up' element = { <SignUp /> } />
             </Route>
           </Routes>

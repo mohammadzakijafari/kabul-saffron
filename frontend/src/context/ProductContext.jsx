@@ -5,6 +5,7 @@ export const ProductContext = createContext();
 const ProductContextProvider = (props) => {
     const currency = "$";
     const deliveryFee = 10;
+    let orderCount = 0;
     const backendUrl = "http://localhost:3000/products";
 
     const [products, setProducts] = useState([]);
@@ -24,7 +25,7 @@ const ProductContextProvider = (props) => {
     }, []);
 
     const value = {
-        products, currency, deliveryFee
+        products, currency, deliveryFee, orderCount
     }
 
     return (

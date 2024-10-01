@@ -17,3 +17,5 @@ const verifyToken = async (req, res, next) => {
         return res.send({msg: "Token is not found"});
     }
 }
+
+module.exports = verifyToken;

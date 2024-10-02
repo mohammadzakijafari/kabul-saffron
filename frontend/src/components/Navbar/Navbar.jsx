@@ -8,7 +8,7 @@ import { ProductContext } from '../../context/ProductContext';
 
 const Navbar = () => {
     let token = localStorage.getItem("token");
-    const { orderCount } = useContext(ProductContext);
+    const { orderCount, setOrderCount } = useContext(ProductContext);
     const navigate = useNavigate();
 
     // Navbar Active Menu Control

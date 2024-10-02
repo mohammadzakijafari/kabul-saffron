@@ -75,7 +75,7 @@ const getUserOrder = async (req, res) => {
         
         const userOrder = await User.findById(user).populate({path: "orders", populate: {path: "products.productId", model: "Product"}});
         res.status(200).send(userOrder);
-        console.log(userOrder.orders[0].products);
+        // console.log(userOrder.orders[0].products);
 
         if (!userOrder) {
             res.send({msg: "User is not found"});

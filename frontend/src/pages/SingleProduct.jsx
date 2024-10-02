@@ -12,7 +12,8 @@ const SingleProduct = () => {
     let token = localStorage.getItem("token");
     let { id } = useParams();
     console.log("product Id = " + id);
-    let { products, currency, orderCount } = useContext(ProductContext);
+    const { products, currency } = useContext(ProductContext);
+    const { orderCount, setOrderCount } = useContext(ProductContext);
     const [productData, setProductData] = useState(false);
     const [image, setImage] = useState('');
     const [quantity, setQuantity] = useState("1");
@@ -54,7 +55,8 @@ const SingleProduct = () => {
                 })
                 toast.success(res.data.msg);
                 console.log(res.data);
-                orderCount = res.data.orderCount;
+                setOrderCount(res.data.orderCount);
+                console.log(orderCount);
                 console.log("Order Count -------------- ", res.data.orderCount);
             } else {
                 toast.error("Before placing orders, you have to first login");

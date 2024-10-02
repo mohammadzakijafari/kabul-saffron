@@ -5,10 +5,10 @@ export const ProductContext = createContext();
 const ProductContextProvider = (props) => {
     const currency = "$";
     const deliveryFee = 10;
-    let orderCount = 0;
     const backendUrl = "http://localhost:3000/products";
 
     const [products, setProducts] = useState([]);
+    const [orderCount, setOrderCount] = useState(0);
 
     const getAllProducts = async () => {
         try {
@@ -24,12 +24,12 @@ const ProductContextProvider = (props) => {
         getAllProducts();
     }, []);
 
-    const value = {
-        products, currency, deliveryFee, orderCount
-    }
+    // const value = {
+    //     products, orderCount
+    // }
 
     return (
-        <ProductContext.Provider value = { value }>
+        <ProductContext.Provider value = {{ products, setProducts, orderCount, setOrderCount }}>
             { props.children }
         </ProductContext.Provider>
     )

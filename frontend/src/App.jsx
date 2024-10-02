@@ -29,12 +29,13 @@ function App() {
             <Route path = '/' element = { <Home /> } />
             <Route path = '/products' element = { <Products /> } />
             <Route path='/products/:id' element = { <SingleProduct /> } />
+            <Route path='/sign-up' element = { <SignUp /> } />
 
             <Route element = { <ProtectedRoutes /> }>
               <Route path = '/recipe' element = { <Recipe /> } />
               <Route path='/dashboard' element = { <Dashboard /> } />
               <Route path='/orders' element = { <Orders /> } />
-              <Route path='/sign-up' element = { <SignUp /> } />
+              
             </Route>
           </Routes>
         </ProductContextProvider>

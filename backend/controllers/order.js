@@ -1,6 +1,7 @@
 const Order = require("../models/order");
 const User = require("../models/user");
 const Product = require("../models/product");
+const mongoose = require("mongoose");
 
 // ------------------- Creating Order Function --------------------- 
 const createOrder = async (req, res) => {
@@ -72,7 +73,6 @@ const getUserOrder = async (req, res) => {
     try {
         let user = req.user.id;
        
-        
         const userOrder = await User.findById(user).populate({path: "orders", populate: {path: "products.productId", model: "Product"}});
         res.status(200).send(userOrder);
         // console.log(userOrder.orders[0].products);
@@ -81,30 +81,10 @@ const getUserOrder = async (req, res) => {
             res.send({msg: "User is not found"});
         }
         
+        // ------------------- For the debugging purpose used ------------------------- 
         // res.send(userOrder);
         // if (userOrder.orders.length > 0) {
         //     console.log(userOrder.orders[0].products);
-        // }
-         // const userCount = await User.findById(user); // Fetch the user by ID
-
-        // if (userCount && userCount.orders) {
-        //     const orderCount = userCount.orders.length; // Get the count of orders
-        //     res.status(200).send(orderCount);
-        //     console.log(`The user has ${orderCount} orders.`);
-        // } else if (userCount) {
-        //     console.log('The user has no orders.');
-        // } else {
-        //     console.log('User not found.');
-        // }
-
-
-
-        // const userCount = await User.findById(user);
-        // console.log("User Count -------------- ", userCount);
-        // if (userCount) {
-        //     const orderCount = userCount.orders.length;
-        //     console.log(`Order Count ==================== ${orderCount}`);
-        //     res.send({orderCount});
         // }
     } catch (error) {
         console.log(error);
@@ -112,4 +92,29 @@ const getUserOrder = async (req, res) => {
     }
 }
 
-module.exports = { createOrder, getUserOrder };
+/* ----------------------- handling delete order from order schema -------------------------- */
+const deleteOrder = async (req, res) => {
+    try {
+        let user = req.user.id;
+        const {
+            orderId
+        } = req.body;
+
+        const userObjectId = new mongoose.Types.ObjectId(user);
+        const orderObjectId = new mongoose.Types.ObjectId(orderId);
+
+        let deletedOrder = await User.updateOne(
+            { _id: userObjectId },            
+            { $pull: { orders: orderObjectId } });
+        res.send({msg: "Deleted Successfully", deletedOrder});
+        // const checkUser = await User.findById(user);
+        // if (!checkUser) {
+        //     return res.send({msg: "User is not found, please register first"});
+        // }
+        // const order = await Order.findOne({});
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+module.exports = { createOrder, getUserOrder, deleteOrder };

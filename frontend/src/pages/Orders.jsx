@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import SectionTitle from '../components/SectionTitle';
 import { MdDeleteForever } from "react-icons/md";
+import { toast } from 'react-toastify';
 
 const uri = "http://localhost:3000/orders";
 
@@ -16,6 +17,7 @@ const Orders = () => {
         headers: { Authorization: `Bearer ${token}`}
       });
       setOrder(res.data.orders);
+      
     } catch (error) {
       console.log(error);
     }
@@ -26,8 +28,18 @@ const Orders = () => {
   }, []);
 
   /* ------------------------------- Deleting Order from cart ------------------------- */
-  async function handleDeleteOrder (e) {
-
+  async function handleDeleteOrder (deleteId) {
+    try {
+      if (window.confirm("Are you sure? You want to remove the order")) {
+        let res = await axios.post(`${uri}/delete/${deleteId}`, deleteId, {
+          headers: {Authorization: `Bearer ${token}`}
+        });
+        toast.success(res.data.msg);
+        getOrders();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -54,7 +66,7 @@ const Orders = () => {
                   </div>
                 </div>
                 <input className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1' type='Number' min={1} defaultValue = { productDetail.quantity } />
-                <MdDeleteForever onClick = { handleDeleteOrder } className='cursor-pointer' size={40} />
+                <MdDeleteForever onClick = {()=> handleDeleteOrder(order._id) } className='cursor-pointer' size={40} />
               </div>
             </div>
           )

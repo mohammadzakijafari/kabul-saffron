@@ -6,6 +6,6 @@ const { createOrder, getUserOrder, deleteOrder } = require("../controllers/order
 
 router.post("/orders/create", verifyToken , createOrder);
 router.get("/orders", verifyToken, getUserOrder);
-router.post("/users", deleteOrder);
+router.post("/orders/delete/:id", verifyToken, deleteOrder);
 
 module.exports = router;

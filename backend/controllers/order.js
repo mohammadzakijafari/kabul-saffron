@@ -96,9 +96,10 @@ const getUserOrder = async (req, res) => {
 const deleteOrder = async (req, res) => {
     try {
         let user = req.user.id;
-        const {
-            orderId
-        } = req.body;
+        let orderId = req.params.id;
+        // const {
+        //     orderId
+        // } = req.body;
 
         const userObjectId = new mongoose.Types.ObjectId(user);
         const orderObjectId = new mongoose.Types.ObjectId(orderId);
@@ -106,7 +107,7 @@ const deleteOrder = async (req, res) => {
         let deletedOrder = await User.updateOne(
             { _id: userObjectId },            
             { $pull: { orders: orderObjectId } });
-        res.send({msg: "Deleted Successfully", deletedOrder});
+        res.send({msg: "Order Deleted Successfully", deletedOrder});
         // const checkUser = await User.findById(user);
         // if (!checkUser) {
         //     return res.send({msg: "User is not found, please register first"});

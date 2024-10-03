@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import SectionTitle from '../components/SectionTitle';
 import { MdDeleteForever } from "react-icons/md";
 import { toast } from 'react-toastify';
+import Cart from './Cart';
 
 const uri = "http://localhost:3000/orders";
 
@@ -17,7 +18,7 @@ const Orders = () => {
         headers: { Authorization: `Bearer ${token}`}
       });
       setOrder(res.data.orders);
-      
+      console.log(res.data.orders);
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +44,7 @@ const Orders = () => {
   }
 
   return (
-    <div className='border-t pt-14'>
+    <div className='border-t pt-14 mx-20'>
       <div className='text-3xl px-5'>
         <SectionTitle text1 = {'YOUR'} text2 = {'CART'} />
       </div>
@@ -60,7 +61,7 @@ const Orders = () => {
                   <div className=''> 
                     <p className='text-lg font-medium'> { productDetail?.productId?.productName } </p>
                     <div className='flex items-center gap-5 mt-2'>
-                      <p> { order.totalPrice } </p>
+                      <p className='text-xl'> ${ order.totalPrice } </p>
                       <p className='px-2 sm:px-3 bg-slate-50'> 3 gr Glass Jar </p>
                     </div>
                   </div>
@@ -72,6 +73,13 @@ const Orders = () => {
           )
         })}
       </div> 
+
+      {/* --------------------------- Cart Section --------------------------- */}
+      <div className='flex justify-end my-20 mx-5'>
+        <div className='w-full sm:w-[450px]'>
+          <Cart />
+        </div>
+      </div>
     </div>
   )
 }

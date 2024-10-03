@@ -18,6 +18,7 @@ const SingleProduct = () => {
     const [image, setImage] = useState('');
     const [quantity, setQuantity] = useState("1");
     let totalPrice = productData.regularPrice;
+    // const [totalPrice, setTotalPrice] = useState(regularPrice);
 
     const getSingleProductData = async () => {
         products.map((product) => {
@@ -38,7 +39,8 @@ const SingleProduct = () => {
     function handleQuantity (e) {
         setQuantity(e.target.value);
     }
-
+    // setTotalPrice(quantity * regularPrice);
+    totalPrice = quantity * productData.regularPrice;
     let productId = id;
     let orderData = {
         productId,
@@ -95,7 +97,7 @@ const SingleProduct = () => {
                     <FaStarHalfAlt />
                     <p className='pl-2'> (150) </p>
                 </div>
-                <p className='pt-10 text-4xl font-medium'> { currency }{ quantity * productData.regularPrice } </p>
+                <p className='pt-10 text-4xl font-medium'> { currency } {totalPrice} </p>
                 <p className='mt-5 text-gray-600 md:w-4/5'> { productData.description } </p>
 
                 <div className='mb-4 mt-8'>

@@ -1,7 +1,8 @@
 import React from 'react'
 import SectionTitle from '../components/SectionTitle'
 
-const Cart = () => {
+const Cart = ({ total }) => {
+  const shipmentFee = 10.00;
   return (
     <div className='w-full'>
       <div className='text-3xl'>
@@ -12,17 +13,17 @@ const Cart = () => {
       <div className='flex flex-col gap-2 mt-2 text-lg'>
         <div className='flex justify-between'>
           <p> Subtotal</p>
-          <p> $100.00 </p>
+          <p> ${Number(total)}.00 </p>
         </div>
         <hr />
         <div className='flex justify-between'>
           <p> Shipping Fee </p>
-          <p> $10.00 </p>
+          <p> ${shipmentFee}.00 </p>
         </div>
         <hr />
         <div className='flex justify-between'>
           <b> Total </b>
-          <b> $110.00 </b>
+          <b> ${Number(total) + shipmentFee}.00 </b>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import SectionTitle from '../components/SectionTitle';
 import { MdDeleteForever } from "react-icons/md";
 import { toast } from 'react-toastify';
 import Cart from './Cart';
+import { useNavigate } from 'react-router-dom';
 
 const uri = "http://localhost:3000/orders";
 
@@ -13,6 +14,9 @@ const Order = () => {
   const [quantities, setQuantities] = useState({}); // Store quantities for each order
   const [totalPrice, setTotalPrice] = useState({});
   const [regularPrice, setRegularPrice] = useState({});
+  const [total, setTotal] = useState({});
+
+  const navigate = useNavigate();
 
   const getOrders = async() => {
     try {
@@ -40,11 +44,28 @@ const Order = () => {
       initialTotalPrice[orderItem._id] = orderItem.totalPrice;
       initialRegularPrice[orderItem._id] = orderItem.products[0]?.productId?.regularPrice;
     });
+
     setQuantities(initialQuantities);
     setTotalPrice(initialTotalPrice);
     setRegularPrice(initialRegularPrice);
+    calculateSubTotal(initialTotalPrice);
   }, [order]); // This runs whenever `order` changes
-//   console.log(regularPrice);
+
+  // Calculate subtotal whenever totalPrice changes
+  useEffect(() => {
+    calculateSubTotal(totalPrice);
+  }, [totalPrice]);
+
+  // Function to calculate subtotal
+  const calculateSubTotal = (priceObj) => {
+    let subTotal = 0;
+    Object.values(priceObj).forEach(value => {
+      subTotal += Number(value);
+    });
+    setTotal(subTotal); // Update the total (subtotal) state
+  };
+
+  
   /* ------------------------------- Deleting Order from cart ------------------------- */
   async function handleDeleteOrder (deleteId) {
     try {
@@ -62,6 +83,9 @@ const Order = () => {
 
   /* ------------------------------- Updating Quantity of Order from cart ------------------------- */
   async function handleQuantity(orderId, newQuantity) {
+
+    const newTotalPrice = newQuantity * regularPrice[orderId]; // Calculate new total for the product
+
     // Update local state
     setQuantities(prevQuantities => ({
       ...prevQuantities,
@@ -76,7 +100,11 @@ const Order = () => {
     setRegularPrice(prevRegularPrice => ({
         ...prevRegularPrice,
         [orderId]: regularPrice[orderId]
-    }))
+    }));
+    // setTotal(prevTotal => ({
+    //     ...prevTotal,
+    //     [orderId]: total[orderId]
+    // }));
     // ------------------ Make API call to update quantity in the backend ----------------------------
     // try {
     //   await axios.post(`${uri}/update/${orderId}`, { quantity: newQuantity }, {
@@ -88,8 +116,11 @@ const Order = () => {
     //   toast.error("Failed to update quantity");
     // }
   }
-  console.log(totalPrice);
-  
+//   console.log(totalPrice);
+    // Object.values(total).forEach(value => {
+    //     subTotal = subTotal + Number(value);
+    // })
+    // console.log(total);
 
   return (
     <div className='border-t pt-14 mx-20'>
@@ -135,7 +166,11 @@ const Order = () => {
       {/* --------------------------- Cart Section --------------------------- */}
       <div className='flex justify-end my-20 mx-5'>
         <div className='w-full sm:w-[450px]'>
-          <Cart />
+          <Cart total = {JSON.stringify(total)} />
+
+          <div className='w-full text-end'>
+            <button onClick={() => navigate('/place-order')} className='bg-red-700 text-white text-lg my-16 px-8 py-4'> PROCEED TO CHECKOUT </button>
+          </div>
         </div>
       </div>
     </div>

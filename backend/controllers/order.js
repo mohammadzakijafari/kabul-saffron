@@ -118,4 +118,14 @@ const deleteOrder = async (req, res) => {
     }
 }
 
+/* ----------------------- handling update order from order schema -------------------------- */
+const updateOrder = async (req, res) => {
+    try {
+        let userId = req.user.id;
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = { createOrder, getUserOrder, deleteOrder };

@@ -11,6 +11,9 @@ const Orders = () => {
 
   let token = localStorage.getItem("token");
   const [order, setOrder] = useState([]);
+  const [quantities, setQuantities] = useState({});
+  
+  
 
   const getOrders = async() => {
     try {
@@ -18,7 +21,7 @@ const Orders = () => {
         headers: { Authorization: `Bearer ${token}`}
       });
       setOrder(res.data.orders);
-      console.log(res.data.orders);
+      // console.log(res.data.orders);
     } catch (error) {
       console.log(error);
     }
@@ -28,6 +31,14 @@ const Orders = () => {
     getOrders();
   }, []);
 
+  useEffect(() => {
+    // Initialize quantities for all orders
+    const initialQuantities = {};
+    order.forEach((orderItem) => {
+      initialQuantities[orderItem._id] = orderItem.products[0].quantity;
+    });
+    setQuantities(initialQuantities);
+  }, [order]);
   /* ------------------------------- Deleting Order from cart ------------------------- */
   async function handleDeleteOrder (deleteId) {
     try {
@@ -43,6 +54,20 @@ const Orders = () => {
     }
   }
 
+  /* ------------------------------- Updating Quantity of Order from cart ------------------------- */
+  async function handleQuantity(orderId, quantity) {
+    console.log(`Order Id = ${orderId}`);
+    console.log(`Quantity = ${quantity}`);
+    // setOrder((prevOrder) => {
+    //   prevOrder?.map((updatedOrder) => {
+    //     updatedOrder._id === orderId
+    //     ? {...updatedOrder, quantity: quantity}
+    //     : updatedOrder;
+    //   });
+    // });
+  };
+  
+
   return (
     <div className='border-t pt-14 mx-20'>
       <div className='text-3xl px-5'>
@@ -52,9 +77,10 @@ const Orders = () => {
       <div className=''>
         {order.map((order, index) => {
           let productDetail = order.products[0];
-          console.log(order._id);
+          // setQuantity(productDetail.quantity);
+          // console.log(order._id);
           return (
-            <div className='px-5 py-2'> 
+            <div className='px-5 py-2' key={index}> 
               <div className='py-4 px-4 border-t border text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4 rounded'> 
                 <div className='flex items-start gap-6'>
                   <img className='w-16 sm:w-20 rounded' src = {productDetail?.productId?.images[0]} alt='' />
@@ -66,7 +92,12 @@ const Orders = () => {
                     </div>
                   </div>
                 </div>
-                <input className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1' type='Number' min={1} defaultValue = { productDetail.quantity } />
+                <input className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1' 
+                  type='Number' 
+                  min={1} 
+                  value= {quantities[order._id] || ''}
+                  onChange={(e) => handleQuantity(order._id, e.target.value) } />
+
                 <MdDeleteForever onClick = {()=> handleDeleteOrder(order._id) } className='cursor-pointer' size={40} />
               </div>
             </div>

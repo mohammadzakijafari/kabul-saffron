@@ -55,8 +55,11 @@ const Navbar = () => {
                                     <NavLink to='/recipe' className= {linkClass}>
                                         Recipe
                                     </NavLink>
-                                    <NavLink to='/dashboard' className= {linkClass}>
-                                        Dashboard
+                                    <NavLink to='/about-us' className= {linkClass}>
+                                        About Us
+                                    </NavLink>
+                                    <NavLink to='/contact' className= {linkClass}>
+                                        Contact Us
                                     </NavLink>
                                     <NavLink to='/login' className= {linkClass} onClick = { handleLogout }>
                                         LOG OUT

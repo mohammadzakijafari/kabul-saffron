@@ -17,6 +17,8 @@ import Orders from './pages/Orders';
 import Order from './pages/Order';
 import PlaceOrder from './pages/PlaceOrder';
 import CheckOrder from './pages/CheckOrder';
+import About from './pages/About';
+import Contact from './pages/Contact';
 
 function App() {
 
@@ -32,6 +34,8 @@ function App() {
             <Route path = '/' element = { <Home /> } />
             <Route path = '/products' element = { <Products /> } />
             <Route path='/products/:id' element = { <SingleProduct /> } />
+            <Route path='/about-us' element = { <About /> } />
+            <Route path='/contact' element = { <Contact /> } />
             <Route path='/sign-up' element = { <SignUp /> } />
 
             <Route element = { <ProtectedRoutes /> }>
@@ -40,6 +44,8 @@ function App() {
               <Route path='/orders' element = { <Order /> } />
               <Route path='/place-order' element = { <PlaceOrder /> } />
               <Route path='/check-order' element = { <CheckOrder /> } />
+              <Route path='/about-us' element = { <About /> } />
+              <Route path='/contact' element = { <Contact /> } />
               
             </Route>
           </Routes>

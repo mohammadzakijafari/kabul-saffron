@@ -15,6 +15,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Orders from './pages/Orders';
 import Order from './pages/Order';
+import PlaceOrder from './pages/PlaceOrder';
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
               <Route path = '/recipe' element = { <Recipe /> } />
               <Route path='/dashboard' element = { <Dashboard /> } />
               <Route path='/orders' element = { <Order /> } />
+              <Route path='/place-order' element = { <PlaceOrder /> } />
               
             </Route>
           </Routes>

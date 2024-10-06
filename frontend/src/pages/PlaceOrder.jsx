@@ -4,12 +4,13 @@ import Cart from "./Cart";
 import { FaCcStripe } from "react-icons/fa";
 import { FaCcPaypal } from "react-icons/fa";
 import { FaCcMastercard } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const PlaceOrder = () => {
     const [method, setMethod] = useState('cod');
-
     const navigate = useNavigate();
+    const location = useLocation();  // Use useLocation to get the state
+    const { total } = location.state || { total: 0 };  // Extract total or default to 0
   return (
     <div className='flex gap-20 pt-20 p-5 sm:pt-14 min-h-[80vh] border-top mx-20'>
         {/* ----------------------------- Left Side ----------------------------- */}

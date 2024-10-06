@@ -160,7 +160,7 @@ const Order = () => {
           <Cart total = {JSON.stringify(total)} />
 
           <div className='w-full text-end'>
-            <button onClick={() => navigate('/place-order')} className='bg-red-700 text-white text-lg my-16 px-8 py-4 rounded'> PROCEED TO CHECKOUT </button>
+            <button onClick={() => navigate('/place-order', { state: { total } })} className='bg-red-700 text-white text-lg my-16 px-8 py-4 rounded'> PROCEED TO CHECKOUT </button>
           </div>
         </div>
       </div>

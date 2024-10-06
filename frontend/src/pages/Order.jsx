@@ -40,7 +40,7 @@ const Order = () => {
     const initialRegularPrice = {};
 
     order.forEach((orderItem) => {
-      initialQuantities[orderItem._id] = orderItem.products[0].quantity;
+      initialQuantities[orderItem._id] = orderItem.quantity;
       initialTotalPrice[orderItem._id] = orderItem.totalPrice;
       initialRegularPrice[orderItem._id] = orderItem.products[0]?.productId?.regularPrice;
     });
@@ -101,26 +101,17 @@ const Order = () => {
         ...prevRegularPrice,
         [orderId]: regularPrice[orderId]
     }));
-    // setTotal(prevTotal => ({
-    //     ...prevTotal,
-    //     [orderId]: total[orderId]
-    // }));
     // ------------------ Make API call to update quantity in the backend ----------------------------
-    // try {
-    //   await axios.post(`${uri}/update/${orderId}`, { quantity: newQuantity }, {
-    //     headers: { Authorization: `Bearer ${token}` }
-    //   });
-    //   toast.success("Quantity updated successfully");
-    // } catch (error) {
-    //   console.log(error);
-    //   toast.error("Failed to update quantity");
-    // }
+    try {
+      await axios.put(`${uri}/update/${orderId}`, {quantity: newQuantity, totalPrice: newTotalPrice }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      toast.success("Quantity and Total Price updated successfully");
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to update Quantity and Total Price");
+    }
   }
-//   console.log(totalPrice);
-    // Object.values(total).forEach(value => {
-    //     subTotal = subTotal + Number(value);
-    // })
-    // console.log(total);
 
   return (
     <div className='border-t pt-14 mx-20'>

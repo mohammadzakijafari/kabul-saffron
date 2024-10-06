@@ -30,8 +30,8 @@ const createOrder = async (req, res) => {
             user,
             products: {
                 productId,
-                quantity
             },
+            quantity,
             totalPrice,
         }
 
@@ -105,7 +105,7 @@ const deleteOrder = async (req, res) => {
         const orderObjectId = new mongoose.Types.ObjectId(orderId);
 
         let deletedOrder = await User.updateOne(
-            { _id: userObjectId },            
+            {_id: userObjectId },            
             { $pull: { orders: orderObjectId } });
         res.send({msg: "Order Deleted Successfully", deletedOrder});
         // const checkUser = await User.findById(user);
@@ -121,11 +121,40 @@ const deleteOrder = async (req, res) => {
 /* ----------------------- handling update order from order schema -------------------------- */
 const updateOrder = async (req, res) => {
     try {
-        let userId = req.user.id;
+        let orderId = req.params.id; // The ID of the specific order
         
-    } catch (error) {
-        console.log(error);
-    }
+        // Extract the updated fields from the request body
+        const { quantity, totalPrice } = req.body;
+        // console.log(`Q--------------- ${quantity} P ---------------- ${totalPrice}`);
+    
+        // Ensure the orderId is a valid ObjectId
+        if (!mongoose.Types.ObjectId.isValid(orderId)) {
+          return res.status(400).json({ message: "Invalid Order ID" });
+        }
+
+        // Find the order by its ID and update its totalPrice
+        const updatedOrder = await Order.findByIdAndUpdate(
+          orderId,
+          {
+            $set: {               // Use $set to update both fields
+              quantity: quantity,
+              totalPrice: totalPrice
+            }
+          },
+          { new: true } // Return the updated document
+        );
+    
+        if (!updatedOrder) {
+          return res.status(404).json({ message: "Order not found." });
+        }
+    
+        // Send the updated order document back as the response
+        res.status(200).json(updatedOrder);
+    
+      } catch (error) {
+        console.log("Error updating order:", error);
+        res.status(500).json({ message: "An error occurred while updating the order." });
+      }
 }
 
-module.exports = { createOrder, getUserOrder, deleteOrder };
+module.exports = { createOrder, getUserOrder, deleteOrder, updateOrder };

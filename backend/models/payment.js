@@ -7,11 +7,25 @@ const paymentSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    order: {
+    product: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Order',
+      ref: 'Product',
       required: true,
     },
+    orderItems: [
+      {
+        orderId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Order",
+        },
+        quantity: {
+          type: Number,
+        },
+        totalPrice: {
+          type: Number,
+        }
+      }
+    ],
     amount: {
       type: Number,
       required: true,
@@ -24,7 +38,7 @@ const paymentSchema = new mongoose.Schema(
     paymentMethod: {
       type: String,
       required: true,
-      enum: ['stripe', 'paypal', 'cod', 'creditCard', 'bankTransfer'],  // Enum for various payment methods
+      enum: ['stripe', 'paypal', 'cod', 'creditCard'],  // Enum for various payment methods
     },
     transactionId: {
       type: String,

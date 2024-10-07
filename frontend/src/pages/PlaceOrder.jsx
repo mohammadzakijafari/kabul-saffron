@@ -1,16 +1,56 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SectionTitle from '../components/SectionTitle'
 import Cart from "./Cart";
 import { FaCcStripe } from "react-icons/fa";
 import { FaCcPaypal } from "react-icons/fa";
 import { FaCcMastercard } from "react-icons/fa";
 import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const uri = "http://localhost:3000/orders";
 
 const PlaceOrder = () => {
+    let token = localStorage.getItem("token");
     const [method, setMethod] = useState('cod');
-    const navigate = useNavigate();
-    const location = useLocation();  // Use useLocation to get the state
-    const { total } = location.state || { total: 0 };  // Extract total or default to 0
+    const [order, setOrder] = useState([]);
+    const [subTotal, setSubTotal] = useState(0);
+    const [total, setTotal] = useState(0);
+    let grandTotal = 0;
+    const shipmentFee = 10.00;
+
+
+    const getOrders = async() => {
+        try {
+          let res = await axios.get(uri, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          setOrder(res.data.orders);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    
+    useEffect(() => {
+        getOrders();
+    }, []);
+    // Calculate grand total whenever 'order' changes
+    useEffect(() => {
+        const grandTotal = order.reduce((total, orderItem) => {
+            return total + orderItem.totalPrice;
+        }, 0);
+        setSubTotal(grandTotal); // Update the subtotal state only when the order changes
+    }, [order]);
+    console.log(order);
+
+    let orderItems = [];
+    order.map((orderItem, index) => {
+        orderItems.push({
+            orderId: orderItem._id,
+            quantity: orderItem.quantity,
+            totalPrice: orderItem.totalPrice,
+        }) 
+    });
+    // console.log(orderItems);
   return (
     <div className='flex gap-20 pt-20 p-5 sm:pt-14 min-h-[80vh] border-top mx-20'>
         {/* ----------------------------- Left Side ----------------------------- */}
@@ -37,7 +77,30 @@ const PlaceOrder = () => {
         {/* ----------------------------- Right Side ----------------------------- */}
         <div className='w-full mt-10'>
             <div className='mt-8 min-w-80'>
-                <Cart />
+                <div className='w-full'>
+                    <div className='text-3xl'>
+                        <SectionTitle text1={'CART'} text2={'TOTAL'} />
+
+                    </div>
+
+                    <div className='flex flex-col gap-2 mt-2 text-lg'>
+                        <div className='flex justify-between'>
+                        <p> Subtotal</p>
+                        <p> ${subTotal}.00 </p>
+                        </div>
+                        <hr />
+                        <div className='flex justify-between'>
+                        <p> Shipping Fee </p>
+                        <p> ${shipmentFee}.00 </p>
+                        </div>
+                        <hr />
+                        <div className='flex justify-between'>
+                        <b> Total </b>
+                        <b> ${subTotal + shipmentFee}.00 </b>
+                        </div>
+                    </div>
+                </div>
+                {/* <Cart /> */}
             </div>
             <div className='mt-12'>
                 {/* --------------------------- Payment Method Selection ----------------------------- */}

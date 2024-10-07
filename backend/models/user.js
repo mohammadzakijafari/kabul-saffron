@@ -29,6 +29,12 @@ const userSchema = new mongoose.Schema({
             ref: 'Order',
         }
     ],
+    payment: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Payment',
+        }
+    ],
     fovorites: [
         {
             type: mongoose.Schema.Types.ObjectId,

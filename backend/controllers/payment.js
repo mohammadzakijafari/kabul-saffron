@@ -1,5 +1,9 @@
 const Payment = require("../models/payment");
+const Stripe = require("stripe");
 
+const currency = "usd";
+/* ------------------- Stripe gateway initialize --------------------------- */
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const placeOrderCashPayment = async (req, res) => {
     let user = req.user.id;
     try {
@@ -39,7 +43,46 @@ const placeOrderCashPayment = async (req, res) => {
 
 const placeOrderStripe = async (req, res) => {
     try {
-        
+        let user = req.user.id;
+        const {productsId, orderItems, amount, firstName, lastName, email, address, phone } = req.body;
+        const { origin } = req.headers;
+
+        const PaymentData = {
+            user,
+            orderItems,
+            amount,
+            address,
+            paymentMethod: "Stripe",
+            firstName,
+            lastName,
+            email,
+            address,
+            phone,
+            paymentStatus: 'pending', // Default status
+        };
+
+        const newPayment = new Payment(PaymentData)
+        await newPayment.save();
+
+        const line_items = orderItems.map((paymentItem) => ({
+            price_data: {
+                currency: currency,
+                product_data: {
+                    name: "test",
+                },
+                unit_amount: amount * 100
+            },
+            quantity: paymentItem.quantity
+        }))
+
+        const session = await stripe.checkout.sessions.create({
+            success_url: `${origin}/verify?success=true&orderId=${newPayment._id}`,
+            cancel_url: `${origin}/verify?success=false&orderId=${newPayment._id}`,
+            line_items,
+            mode: 'payment',
+        })
+
+        res.json({success:true, session_url: session.url});
     } catch (error) {
         console.log(error);
     }

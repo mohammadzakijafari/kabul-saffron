@@ -107,6 +107,7 @@ const Order = () => {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success("Quantity and Total Price updated successfully");
+      getOrders();
     } catch (error) {
       console.log(error);
       toast.error("Failed to update Quantity and Total Price");

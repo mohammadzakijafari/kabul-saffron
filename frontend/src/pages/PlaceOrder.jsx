@@ -96,7 +96,19 @@ const PlaceOrder = () => {
                     navigate("/check-order");
                     console.log(res.data);
                     break;
-
+                case 'stripe':
+                    const resStripe = await axios.post(`${paymentUri}/stripe`, newOrderPayment, {
+                        headers: { Authorization: `Bearer ${token}`}
+                    });
+                    if (resStripe.data.success) {
+                        const { session_url } = resStripe.data
+                        console.log(session_url);
+                        window.location.replace(session_url);
+                        
+                    } else {
+                        toast.error(resStripe.data.message);
+                    }
+                    break;
                 default:
                     break;
             }

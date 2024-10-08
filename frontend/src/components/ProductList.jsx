@@ -30,7 +30,7 @@ const ProductList = ({ product }) => {
                 <img
                     src={product.images[0]}
                     alt="Product Image"
-                    className="h-full w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-110"
+                    className="h-96 w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-110"
                 />
             </div>
             <div className="p-4">

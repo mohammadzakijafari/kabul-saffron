@@ -7,12 +7,16 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const placeOrderCashPayment = async (req, res) => {
     let user = req.user.id;
     try {
-        const {productsId, orderItems, amount, firstName, lastName, email, address, phone } = req.body;
+        const {productsId, productsName, orderItems, amount, firstName, lastName, email, address, phone } = req.body;
+        // console.log(productsId);
+        console.log(orderItems);
         // Extract the productId values into an array of ObjectIds
-        // const productIdsArray = productsId.map(item => item.productId);
+        const productIdsArray = productsId.map(item => item.productId);
+        const productNamesArray = productsName.map(item => item.productName);
         const newPayment = await Payment.create({
             user,
             // productsId: productIdsArray,
+            // productNamesArray,
             orderItems,
             amount,
             address,
@@ -44,7 +48,7 @@ const placeOrderCashPayment = async (req, res) => {
 const placeOrderStripe = async (req, res) => {
     try {
         let user = req.user.id;
-        const {productsId, orderItems, amount, firstName, lastName, email, address, phone } = req.body;
+        const {productsName, orderItems, amount, firstName, lastName, email, address, phone } = req.body;
         const { origin } = req.headers;
 
         const PaymentData = {
@@ -68,7 +72,7 @@ const placeOrderStripe = async (req, res) => {
             price_data: {
                 currency: currency,
                 product_data: {
-                    name: "test",
+                    name: paymentItem.productName
                 },
                 unit_amount: amount * 100
             },

@@ -63,15 +63,22 @@ const PlaceOrder = () => {
 
     let orderItems = [];
     let productsId = [];
+    let productsName = [];
+    let productsRegularPrice = [];
+    console.log(order);
     order.map((orderItem, index) => {
         orderItems.push({
             orderId: orderItem._id,
+            productName: orderItem?.products[0]?.productId?.productName,
             quantity: orderItem.quantity,
             totalPrice: orderItem.totalPrice,
         });
 
         productsId.push({
             productId: orderItem?.products[0]?.productId?._id
+        });
+        productsName.push({
+            productName: orderItem?.products[0]?.productId?.productName
         })
     });
     // console.log(orderItems);
@@ -79,6 +86,7 @@ const PlaceOrder = () => {
 
     const newOrderPayment = {
         productsId,
+        productsName,
         orderItems,
         amount: subTotal,
         ...orderPayment,

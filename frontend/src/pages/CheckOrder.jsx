@@ -80,25 +80,26 @@ const CheckOrder = () => {
         
         <div className=''>
             {orderPayment.map((orderItem, index) => {
-                let productDetail = orderItem.products;
+                let productDetail = orderItem.orderItems[0];
+                // console.log(productDetail);
                 return (
                     <div key={index} className='py-8 border-t border-b text-gray-700 flex flex-col md:flex-row md:items-center md:justify-between gap-4'> 
                         <div className='flex items-start gap-6 text-lg'>
-                            <img className='w-32 rounded' src={productDetail?.productId?.images[0]} alt='' />
+                            <img className='w-32 rounded' src={productDetail?.orderId?.products[0]?.productId?.images[0]} alt='' />
                             <div className=''> 
-                                <p className='text-lg font-medium'> { productDetail?.productId?.productName } </p>
+                                <p className='text-lg font-medium'> { productDetail?.orderId?.products[0]?.productId?.productName } </p>
                                 <div className='flex items-center gap-5 mt-2'>
                                     <p className='text-xl'> ${ orderItem.amount } </p>
-                                    <p className=''> Quantity: 3 </p>
+                                    <p className=''> { productDetail?.orderId?.quantity } </p>
                                     <p className='px-2 sm:px-3 bg-slate-50'> 3 gr Glass Jar </p>
                                 </div>
-                                <p className='mt-2'> Date: <span className = "text-gray-400"> 05, October 2024 </span> </p>
+                                <p className='mt-2'> Date: <span className = "text-gray-400"> { orderItem.paymentDate } </span> </p>
                             </div>
                         </div>
                         <div className='md:w-1/2 flex justify-between'>
                             <div className='flex items-center gap-3'>
                                 <p className='min-w-4 h-4 rounded-full bg-green-500'> </p>
-                                <p className='text-lg'> Ready To Ship </p>
+                                <p className='text-lg'> { orderItem.paymentStatus } </p>
                             </div>
                             <button className='border px-4 py-2 text-lg font-medium rounded-sm'> Track Order </button>
                         </div>

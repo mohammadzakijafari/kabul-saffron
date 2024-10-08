@@ -3,19 +3,65 @@ import SectionTitle from '../components/SectionTitle'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const uri = "http://localhost:3000/orders";
+const uri = "http://localhost:3000/payment";
 
 const CheckOrder = () => {
     let token = localStorage.getItem("token");
-    const [order, setOrder] = useState([]);
+    const [orderPayment, setOrderPayment] = useState([]);
     const navigate = useNavigate();
 
+    // const getOrders = async () => {
+    //     try {
+    //         let res = await axios.post(`${uri}/userorders`, {}, {
+    //             headers: { Authorization: `Bearer ${token}` }
+    //         });
+    
+    //         if (res.data.orderPayment.length > 0) {
+    //             let allOrdersItem = [];
+    //             res.data.orderPayment.map((orderItem) => {
+    //                 orderItem.orderItems.map((item) => {
+    //                     item['address'] = orderItem.address;
+    //                     item['amount'] = orderItem.amount;
+    //                     item['paymentMethod'] = orderItem.paymentMethod;
+    //                     item['paymentStatus'] = orderItem.paymentStatus;
+    //                     item['paymentDate'] = orderItem.paymentDate;
+    
+    //                     allOrdersItem.push(item);
+    //                 });
+    //             });
+    //             setOrderPayment(allOrdersItem);
+    //         } else {
+    //             console.log("No orders found for this user.");
+    //             setOrderPayment([]); // Set empty state if no orders
+    //         }
+    //     } catch (error) {
+    //         console.log("Error fetching orders:", error);
+    //     }
+
+    // if (res.data.orderPayment.length > 0) {
+    //     let allOrdersItem = [];
+    //     res.data.orderPayment.map((orderItem) => {
+    //         orderItem.orderItems.map((item) => {
+    //             item['address'] = orderItem.address
+    //             item['amount'] = orderItem.amount
+    //             item['paymentMethod'] = orderItem.paymentMethod
+    //             item['paymentStatus'] = orderItem.paymentStatus
+    //             item['paymentDate'] = orderItem.paymentDate
+
+    //             allOrdersItem.push(item);
+    //         })
+    //     })
+    //     setOrderPayment(allOrdersItem);
+    // }
+    // };
+    
     const getOrders = async() => {
         try {
-        let res = await axios.get(uri, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
-        setOrder(res.data.orders);
+            let res = await axios.post(`${uri}/userorders`, {}, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setOrderPayment(res.data.orderPayment);
+            
         } catch (error) {
         console.log(error);
         }
@@ -24,6 +70,8 @@ const CheckOrder = () => {
     useEffect(() => {
         getOrders();
     }, []);
+
+    console.log(orderPayment);
   return (
     <div className='pt-16 mx-28'>
         <div className='text-4xl'>
@@ -31,8 +79,8 @@ const CheckOrder = () => {
         </div>
         
         <div className=''>
-            {order.map((orderItem, index) => {
-                let productDetail = orderItem.products[0];
+            {orderPayment.map((orderItem, index) => {
+                let productDetail = orderItem.products;
                 return (
                     <div key={index} className='py-8 border-t border-b text-gray-700 flex flex-col md:flex-row md:items-center md:justify-between gap-4'> 
                         <div className='flex items-start gap-6 text-lg'>
@@ -40,7 +88,7 @@ const CheckOrder = () => {
                             <div className=''> 
                                 <p className='text-lg font-medium'> { productDetail?.productId?.productName } </p>
                                 <div className='flex items-center gap-5 mt-2'>
-                                    <p className='text-xl'> ${ orderItem.totalPrice } </p>
+                                    <p className='text-xl'> ${ orderItem.amount } </p>
                                     <p className=''> Quantity: 3 </p>
                                     <p className='px-2 sm:px-3 bg-slate-50'> 3 gr Glass Jar </p>
                                 </div>

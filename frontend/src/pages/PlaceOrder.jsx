@@ -6,8 +6,10 @@ import { FaCcPaypal } from "react-icons/fa";
 import { FaCcMastercard } from "react-icons/fa";
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const uri = "http://localhost:3000/orders";
+const paymentUri = "http://localhost:3000/payment";
 
 const PlaceOrder = () => {
     let token = localStorage.getItem("token");
@@ -18,6 +20,23 @@ const PlaceOrder = () => {
     let grandTotal = 0;
     const shipmentFee = 10.00;
 
+    const navigate = useNavigate();
+
+    const [orderPayment, setOrderPayment] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        street: "",
+        zipCode: "",
+        country: "",
+        phone: "",
+    });
+
+    // Handle input change when user enters product's value
+    function handleChange (e) {
+        const {name, value} = e.target;
+        setOrderPayment({...orderPayment, [name]: value, });
+    }
 
     const getOrders = async() => {
         try {
@@ -40,39 +59,150 @@ const PlaceOrder = () => {
         }, 0);
         setSubTotal(grandTotal); // Update the subtotal state only when the order changes
     }, [order]);
-    console.log(order);
+    // console.log(order);
 
     let orderItems = [];
+    let productsId = [];
     order.map((orderItem, index) => {
         orderItems.push({
             orderId: orderItem._id,
             quantity: orderItem.quantity,
             totalPrice: orderItem.totalPrice,
-        }) 
+        });
+
+        productsId.push({
+            productId: orderItem?.products[0]?.productId?._id
+        })
     });
     // console.log(orderItems);
+    // console.log(productsId);
+
+    const newOrderPayment = {
+        productsId,
+        orderItems,
+        amount: subTotal,
+        ...orderPayment,
+    }
+    // Function to add a new Order for payment
+    async function addNewOrderPayment(e) {
+        e.preventDefault();
+        try {
+            switch(method) {
+                case 'cod':
+                    let res = await axios.post(`${paymentUri}/cash`, newOrderPayment, {
+                        headers: { Authorization: `Bearer ${token}`}
+                    });
+                    toast.success(res.data.msg);
+                    navigate("/check-order");
+                    console.log(res.data);
+                    break;
+
+                default:
+                    break;
+            }
+        } catch (error) {
+            console.log(error);
+            console.log("Connection to Server Problem");
+        }
+
+        // try {
+        //     let formData = new FormData();
+        //     formData.append("orderItems", JSON.stringify(orderItems));
+        //     formData.append("amount", subTotal);
+        //     formData.append("paymentMethod", "cash");
+        //     formData.append("firstName", orderPayment.firstName);
+        //     formData.append("lastName", orderPayment.lastName);
+        //     formData.append("email", orderPayment.email);
+        //     formData.append("address", `${orderPayment.street}, ${orderPayment.zipCode}, ${orderPayment.country}`);
+        //     formData.append("phone", orderPayment.phone);
+        //     // Log the formData content
+        //     for (let pair of formData.entries()) {
+        //         console.log(`${pair[0]}: ${pair[1]}`);
+        //     }
+        //     // console.log(formData);
+        //     let res = await axios.post(`${paymentUri}/cash`, formData, {
+        //         headers: { Authorization: `Bearer ${token}`,
+        //         'Content-Type': 'multipart/form-data'}
+        //     });
+        //     alert(res.data.msg);
+        //     console.log(res.data);
+            
+        // } catch (error) {
+        //     console.log(error);
+        //     console.log("Connection to Server Problem");
+        // }
+    }
   return (
     <div className='flex gap-20 pt-20 p-5 sm:pt-14 min-h-[80vh] border-top mx-20'>
         {/* ----------------------------- Left Side ----------------------------- */}
-        <div className='flex flex-col gap-10 w-full'>
+        <form className='flex flex-col gap-10 w-full'>
             <div className='text-xl sm:text-2xl my-3'>
                 <SectionTitle text1={'DELIVERY'} text2={"INFORMATION"} />
             </div>
             <div className='flex gap-3'>
-                <input className='border border-gray-400 rounded py-2 px-3.5 w-full' type='text' placeholder='First name' />
-                <input className='border border-gray-400 rounded py-2 px-3.5 w-full' type='text' placeholder='Last name' />
+                <input 
+                    id='firstName' 
+                    name='firstName' 
+                    className='border border-gray-400 rounded py-2 px-3.5 w-full' 
+                    type='text' 
+                    placeholder='First name'
+                    value = { orderPayment.firstName }
+                    onChange = { handleChange } />
+                <input 
+                    id='lastName'
+                    name='lastName'
+                    className='border border-gray-400 rounded py-2 px-3.5 w-full' 
+                    type='text' 
+                    placeholder='Last name'
+                    value = { orderPayment.lastName }
+                    onChange = { handleChange } />
             </div>
 
-            <input className='border border-gray-400 rounded py-2 px-3.5 w-full' type='email' placeholder='Email Address' />
-            <input className='border border-gray-400 rounded py-1.5 px-3.5 w-full' type='text' placeholder='Street' />
+            <input 
+                id='email'
+                name='email'
+                className='border border-gray-400 rounded py-2 px-3.5 w-full' 
+                type='email' 
+                placeholder='Email Address'
+                value = { orderPayment.email }
+                onChange = { handleChange } />
+            <input 
+                id='street'
+                name='street'
+                className='border border-gray-400 rounded py-1.5 px-3.5 w-full' 
+                type='text' 
+                placeholder='Street'
+                value = { orderPayment.street }
+                onChange = { handleChange } />
 
             <div className='flex gap-3'>
-                <input className='border border-gray-400 rounded py-2 px-3.5 w-full' type='number' placeholder='Zipcode' />
-                <input className='border border-gray-400 rounded py-2 px-3.5 w-full' type='text' placeholder='Country' />
+                <input 
+                    id='zipCode'
+                    name='zipCode'
+                    className='border border-gray-400 rounded py-2 px-3.5 w-full' 
+                    type='number' 
+                    placeholder='Zipcode'
+                    value = { orderPayment.zipCode }
+                    onChange = { handleChange } />
+                <input 
+                    id='country'
+                    name='country'
+                    className='border border-gray-400 rounded py-2 px-3.5 w-full' 
+                    type='text' 
+                    placeholder='Country'
+                    value = { orderPayment.country }
+                    onChange = { handleChange } />
             </div>
 
-            <input className='border border-gray-400 rounded py-2 px-3.5 w-full' type='number' placeholder='Phone' />
-        </div>
+            <input 
+                id='phone'
+                name='phone'
+                className='border border-gray-400 rounded py-2 px-3.5 w-full' 
+                type='number' 
+                placeholder='Phone' 
+                value = { orderPayment.phone }
+                onChange = { handleChange } />
+        </form>
 
         {/* ----------------------------- Right Side ----------------------------- */}
         <div className='w-full mt-10'>
@@ -125,7 +255,7 @@ const PlaceOrder = () => {
                 </div>
 
                 <div className='w-full text-end mt-16'>
-                <button onClick={() => navigate('/check-order')} className='bg-red-700 text-white text-lg my-16 px-8 py-4 rounded'> PLACE ORDER </button>
+                <button onClick = { addNewOrderPayment } className='bg-red-700 text-white text-lg my-16 px-8 py-4 rounded'> PLACE ORDER </button>
                 </div>
             </div>
         </div>

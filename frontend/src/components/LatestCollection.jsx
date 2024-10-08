@@ -12,19 +12,32 @@ const LatestCollection = () => {
         setLatestProduct(products.slice(0,8));
     }, [products])
   return (
-    <div className='my-10'>
-        <div className='text-center py-8 text-4xl'>
-            <SectionTitle text1 = { "Latest" } text2 = { "Collection" } />
-        </div>
+    // <div className='my-10'>
+    //     <div className='text-center py-8 text-4xl'>
+    //         <SectionTitle text1 = { "Latest" } text2 = { "Collection" } />
+    //     </div>
 
-        <div className='flex justify-center items-center mx-28'>
-          <div className='grid w-full grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-            {latestProduct.map((product, index) => (
-              <ProductList key = { index } product = { product } />
-            ))}
+    //     <div className='flex justify-center items-center mx-28'>
+    //       <div className='grid w-full grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+    //         {latestProduct.map((product, index) => (
+    //           <ProductList key = { index } product = { product } />
+    //         ))}
         
+    //       </div>
+    //     </div>
+    // </div>
+
+    <div className='my-10'>
+      <div className='text-center py-8 text-4xl font-bold text-gray-800'>
+          <SectionTitle text1={"Latest"} text2={"Collection"} />
+      </div>
+      <div className='flex justify-center items-center mx-5 sm:mx-10 md:mx-20 lg:mx-28'>
+          <div className='grid w-full grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+              {latestProduct.map((product, index) => (
+                  <ProductList key={index} product={product} />
+              ))}
           </div>
-        </div>
+      </div>
     </div>
   )
 }

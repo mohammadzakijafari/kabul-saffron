@@ -30,77 +30,133 @@ const Navbar = () => {
         setMenuVisible(!menuVisible);
     };
   return (
-    <div>
-        <nav className='bg-red-700 border-b border-red-500'>
-            <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
-                <div className='flex h-20 items-center justify-between'>
-                    <div className='flex flex-1 items-center justify-between'>
-                        <NavLink className='flex flex-shrink-0 items-center mr-4' to='/'>
-                            <img className='h-10 w-auto' src={logo} alt='React Jobs' />
-                            <span className='hidden md:block text-white text-2xl font-bold ml-2'>
-                                Kabul Zaffron
-                            </span>
-                        </NavLink>
+    // <div>
+    //     <nav className='bg-red-700 border-b border-red-500'>
+    //         <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
+    //             <div className='flex h-20 items-center justify-between'>
+    //                 <div className='flex flex-1 items-center justify-between'>
+    //                     <NavLink className='flex flex-shrink-0 items-center mr-4' to='/'>
+    //                         <img className='h-10 w-auto' src={logo} alt='React Jobs' />
+    //                         <span className='hidden md:block text-white text-2xl font-bold ml-2'>
+    //                             Kabul Zaffron
+    //                         </span>
+    //                     </NavLink>
                     
-                        <div className='md:ml-auto'>
-                            <div className='flex space-x-2'>
-                                {token ? 
-                                <>
-                                    <NavLink to='/' className= {linkClass}>
-                                        HOME
-                                    </NavLink>
-                                    <NavLink to='/products' className= {linkClass}>
-                                        Products
-                                    </NavLink>
-                                    <NavLink to='/recipe' className= {linkClass}>
-                                        Recipe
-                                    </NavLink>
-                                    <NavLink to='/about-us' className= {linkClass}>
-                                        About Us
-                                    </NavLink>
-                                    <NavLink to='/contact' className= {linkClass}>
-                                        Contact Us
-                                    </NavLink>
-                                    <NavLink to='/login' className= {linkClass} onClick = { handleLogout }>
-                                        LOG OUT
-                                    </NavLink>
-                                </> : 
-                                <>
-                                    <NavLink to='/' className= {linkClass}>
-                                        HOME
-                                    </NavLink>
-                                    <NavLink to='/sign-up' className= {linkClass}>
-                                        SIGN IN
-                                    </NavLink>
-                                </>}
+    //                     <div className='md:ml-auto'>
+    //                         <div className='flex space-x-2'>
+    //                             {token ? 
+    //                             <>
+    //                                 <NavLink to='/' className= {linkClass}>
+    //                                     HOME
+    //                                 </NavLink>
+    //                                 <NavLink to='/products' className= {linkClass}>
+    //                                     Products
+    //                                 </NavLink>
+    //                                 <NavLink to='/recipe' className= {linkClass}>
+    //                                     Recipe
+    //                                 </NavLink>
+    //                                 <NavLink to='/about-us' className= {linkClass}>
+    //                                     About Us
+    //                                 </NavLink>
+    //                                 <NavLink to='/contact' className= {linkClass}>
+    //                                     Contact Us
+    //                                 </NavLink>
+    //                                 <NavLink to='/login' className= {linkClass} onClick = { handleLogout }>
+    //                                     LOG OUT
+    //                                 </NavLink>
+    //                             </> : 
+    //                             <>
+    //                                 <NavLink to='/' className= {linkClass}>
+    //                                     HOME
+    //                                 </NavLink>
+    //                                 <NavLink to='/sign-up' className= {linkClass}>
+    //                                     SIGN IN
+    //                                 </NavLink>
+    //                             </>}
                                 
-                            </div>
-                        </div>
+    //                         </div>
+    //                     </div>
 
-                        {/* User Profile, Search and Cart Section  */}
-                        <div className='flex items-center gap-6'>
-                            <IoSearchOutline size={40} color='white' className='cursor-pointer' />
-                            <div className='group relative'>
-                                <MdAccountCircle size={40} color='white' className='cursor-pointer' />
-                                <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
-                                    <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-700 rounded'>
-                                        <p className='cursor-pointer hover:text-black'> My Profile </p>
-                                        <p className='cursor-pointer hover:text-black'> Orders </p>
-                                        <p className='cursor-pointer hover:text-black'> Logout </p>
-                                    </div>
+    //                     {/* User Profile, Search and Cart Section  */}
+    //                     <div className='flex items-center gap-6'>
+    //                         <IoSearchOutline size={40} color='white' className='cursor-pointer' />
+    //                         <div className='group relative'>
+    //                             <MdAccountCircle size={40} color='white' className='cursor-pointer' />
+    //                             <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
+    //                                 <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-700 rounded'>
+    //                                     <p className='cursor-pointer hover:text-black'> My Profile </p>
+    //                                     <p className='cursor-pointer hover:text-black'> Orders </p>
+    //                                     <p className='cursor-pointer hover:text-black'> Logout </p>
+    //                                 </div>
+    //                             </div>
+    //                         </div>
+    //                         <NavLink to = '/orders' className = 'relative'>
+    //                             <FaCartArrowDown size={40} color='white' />
+    //                             <p className='absolute right-[-5px] bottom-[-5px] w-6 text-center leading-6 bg-black text-white aspect-square rounded-full text-[12px]'> { orderCount } </p>
+    //                          </NavLink>
+    //                     </div>
+
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     </nav>
+    // </div>
+
+    <nav className='bg-red-700 border-b border-red-500 shadow-lg'>
+        <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+            <div className='flex h-20 items-center justify-between'>
+                <div className='flex items-center'>
+                    <NavLink to='/' className='flex items-center'>
+                        <img className='h-10 w-auto' src={logo} alt='React Jobs' />
+                        <span className='hidden md:block text-white text-2xl font-bold ml-2'>
+                            Kabul Zaffron
+                        </span>
+                    </NavLink>
+                </div>
+
+                <div className='hidden md:flex space-x-8'>
+                    {token ? (
+                        <>
+                            <NavLink to='/' className={linkClass}>HOME</NavLink>
+                            <NavLink to='/products' className={linkClass}>PRODUCTS</NavLink>
+                            <NavLink to='/recipe' className={linkClass}>RECIPE</NavLink>
+                            <NavLink to='/about-us' className={linkClass}>ABOUT US</NavLink>
+                            <NavLink to='/contact' className={linkClass}>CONTACT US</NavLink>
+                            <NavLink to='/login' className={linkClass} onClick={handleLogout}>LOG OUT</NavLink>
+                        </>
+                    ) : (
+                        <>
+                            <NavLink to='/' className={linkClass}>HOME</NavLink>
+                            <NavLink to='/sign-up' className={linkClass}>SIGN IN</NavLink>
+                        </>
+                    )}
+                </div>
+
+                {/* User Profile, Search and Cart Section */}
+                <div className='flex items-center gap-4'>
+                    <IoSearchOutline size={30} color='white' className='cursor-pointer hover:text-red-300 transition' />
+                    <div className='relative group'>
+                        <MdAccountCircle size={30} color='white' className='cursor-pointer' onClick={toggleMenu} />
+                        {menuVisible && (
+                            <div className='absolute right-0 z-10 mt-2 w-36 rounded-md shadow-lg bg-white text-gray-700'>
+                                <div className='py-2'>
+                                    <p className='block px-4 py-2 text-sm cursor-pointer hover:bg-gray-200'>My Profile</p>
+                                    <p className='block px-4 py-2 text-sm cursor-pointer hover:bg-gray-200'>Orders</p>
+                                    <p className='block px-4 py-2 text-sm cursor-pointer hover:bg-gray-200' onClick={handleLogout}>Logout</p>
                                 </div>
                             </div>
-                            <NavLink to = '/orders' className = 'relative'>
-                                <FaCartArrowDown size={40} color='white' />
-                                <p className='absolute right-[-5px] bottom-[-5px] w-6 text-center leading-6 bg-black text-white aspect-square rounded-full text-[12px]'> { orderCount } </p>
-                             </NavLink>
-                        </div>
-
+                        )}
                     </div>
+                    <NavLink to='/orders' className='relative'>
+                        <FaCartArrowDown size={30} color='white' />
+                        {orderCount > 0 && (
+                            <p className='absolute right-[-5px] bottom-[-5px] w-6 text-center leading-6 bg-black text-white rounded-full text-xs'> {orderCount} </p>
+                        )}
+                    </NavLink>
                 </div>
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
   )
 }
 

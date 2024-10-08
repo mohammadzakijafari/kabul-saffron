@@ -19,6 +19,7 @@ import PlaceOrder from './pages/PlaceOrder';
 import CheckOrder from './pages/CheckOrder';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Footer from './components/Footer/Footer';
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
               
             </Route>
           </Routes>
+          <Footer />
         </ProductContextProvider>
       </BrowserRouter>
     </div>

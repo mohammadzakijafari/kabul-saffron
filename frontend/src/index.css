@@ -1,3 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    background-color: #f8f9fa; /* Light background color for better contrast */
+}
+
+.group {
+    transition: transform 0.3s;
+}
+
+.group:hover {
+    transform: scale(1.05); /* Scale effect on hover */
+}
+
+.text-gray-800 {
+    color: #4a4a4a; /* Slightly darker text color for readability */
+}
+
+.border {
+    border-color: #e2e8f0; /* Soft border color for product cards */
+}
+
+.shadow-lg {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+}
+
+/* Add more styles as needed for your project */
+
+/* ----------------------------- CSS for navbar -------------------------------- */
+/* Customize link hover effects */
+.text-white {
+    transition: color 0.3s;
+}
+
+.hover\:text-red-300:hover {
+    color: #fca5a1; /* Light red color on hover */
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+    transition: opacity 0.2s ease-in-out;
+}

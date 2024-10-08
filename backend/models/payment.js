@@ -7,11 +7,11 @@ const paymentSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    product: {
+    productsId: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Product',
-      required: true,
-    },
+      // required: true,
+    }],
     orderItems: [
       {
         orderId: {
@@ -42,7 +42,7 @@ const paymentSchema = new mongoose.Schema(
     },
     transactionId: {
       type: String,
-      required: true, // Unique transaction ID from payment gateway (e.g., Stripe or PayPal)
+      // required: true, // Unique transaction ID from payment gateway (e.g., Stripe or PayPal)
     },
     paymentStatus: {
       type: String,

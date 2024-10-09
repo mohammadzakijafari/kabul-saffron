@@ -1,5 +1,6 @@
 const Payment = require("../models/payment");
 const Stripe = require("stripe");
+const User = require("../models/user");
 
 const currency = "usd";
 /* ------------------- Stripe gateway initialize --------------------------- */
@@ -92,6 +93,24 @@ const placeOrderStripe = async (req, res) => {
     }
 }
 
+/* ----------------------- Verify Stripe Controller function ---------------------- */
+const verifyStripe = async (req, res) => {
+    const { orderId, success, userId } = req.body;
+
+    try {
+        if (success === "true") {
+            await Payment.findByIdAndUpdate(orderId, {payment: true});
+            res.json({success: true});
+        } else {
+            await Payment.findByIdAndDelete(orderId);
+            res.json({success: false});
+        }
+    } catch (error) {
+        console.log(error);
+        res.json({success: false, msg: error.message});
+    }
+}
+
 const userOrders = async(req, res) => {
     try {
         let userId = req.user.id;
@@ -114,4 +133,4 @@ const userOrders = async(req, res) => {
     }
 }
 
-module.exports = { placeOrderCashPayment, placeOrderStripe, userOrders };
+module.exports = { placeOrderCashPayment, placeOrderStripe, userOrders, verifyStripe };

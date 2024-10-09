@@ -18,6 +18,9 @@ const paymentSchema = new mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: "Order",
         },
+        productName: {
+          type: String,
+        },
         quantity: {
           type: Number,
         },
@@ -48,6 +51,11 @@ const paymentSchema = new mongoose.Schema(
       type: String,
       enum: ['pending', 'completed', 'failed', 'refunded'],  // Different statuses for payment
       default: 'pending',
+    },
+    payment: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
     paymentDate: {
       type: Date,

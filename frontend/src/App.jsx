@@ -20,6 +20,7 @@ import CheckOrder from './pages/CheckOrder';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Footer from './components/Footer/Footer';
+import VerifyStripe from './pages/VerifyStripe';
 
 function App() {
 
@@ -47,6 +48,7 @@ function App() {
               <Route path='/check-order' element = { <CheckOrder /> } />
               <Route path='/about-us' element = { <About /> } />
               <Route path='/contact' element = { <Contact /> } />
+              <Route path='/verify' element = { <VerifyStripe /> } />
               
             </Route>
           </Routes>

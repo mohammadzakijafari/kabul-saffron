@@ -6,8 +6,7 @@ const Cart = ({ total }) => {
   return (
     <div className='w-full'>
       <div className='text-3xl'>
-        <SectionTitle text1={'CART'} text2={'TOTAL'} />
-
+      <p className=''> Cart Total </p>
       </div>
 
       <div className='flex flex-col gap-2 mt-2 text-lg'>

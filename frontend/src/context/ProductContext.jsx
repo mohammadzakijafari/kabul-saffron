@@ -29,7 +29,7 @@ const ProductContextProvider = (props) => {
     // }
 
     return (
-        <ProductContext.Provider value = {{ products, setProducts, orderCount, setOrderCount }}>
+        <ProductContext.Provider value = {{ products, setProducts, orderCount, setOrderCount, currency }}>
             { props.children }
         </ProductContext.Provider>
     )

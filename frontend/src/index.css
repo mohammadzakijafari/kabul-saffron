@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    background-color: #f8f9fa; /* Light background color for better contrast */
+    background-color: #f8f9fa; 
 }
 
 .group {

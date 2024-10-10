@@ -89,7 +89,7 @@ const AddProduct = () => {
                     type='text'
                     id='productName'
                     name='productName'
-                    className='border border-black rounded w-full py-2 px-3 mb-2'
+                    className='bg-gray-200 rounded w-full py-2 px-3 mb-2'
                     placeholder='eg. Beautiful Apartment In Miami'
                     required
                     value =  { product.productName }
@@ -101,7 +101,7 @@ const AddProduct = () => {
                 <textarea
                     id='description'
                     name='description'
-                    className='border border-black rounded w-full py-2 px-3'
+                    className='bg-gray-200 rounded w-full py-2 px-3'
                     rows='6'
                     placeholder='Add any job duties, expectations, requirements, etc'
                     value =  { product.description }
@@ -115,7 +115,7 @@ const AddProduct = () => {
                         type='text'
                         id='regularPrice'
                         name='regularPrice'
-                        className='border border-black rounded w-full py-2 px-3 mb-2'
+                        className='bg-gray-200 rounded w-full py-2 px-3 mb-2'
                         placeholder='Product Regular Price'
                         required
                         value =  { product.regularPrice }
@@ -128,7 +128,7 @@ const AddProduct = () => {
                         type='text'
                         id='discountPrice'
                         name='discountPrice'
-                        className='border border-black rounded w-full py-2 px-3 mb-2'
+                        className='bg-gray-200 rounded w-full py-2 px-3 mb-2'
                         placeholder='Product Discounted Price'
                         required
                         value =  { product.discountPrice }
@@ -141,16 +141,16 @@ const AddProduct = () => {
               <select
                 id='productFeature'
                 name='productFeature'
-                className='border border-black rounded w-full py-2 px-3'
+                className='bg-gray-200 rounded w-full py-2 px-3'
                 required
                 value = {productFeature}
                 onChange = {(e) => setProductFeature(e.target.value)}
               >
                 <option value=''> Select Zaffron Feature </option>
                 <option value='featured'> Featured </option>
-                <option value='bestSeller'> Best Seller </option>
-                <option value='firstQuality'> First Quality </option>
-                <option value='secondSuality'> Second Quality </option>
+                <option value='best-seller'> Best Seller </option>
+                <option value='first-quality'> First Quality </option>
+                <option value='second-quality'> Second Quality </option>
               </select>
             </div>
 

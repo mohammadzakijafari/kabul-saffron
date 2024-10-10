@@ -51,4 +51,20 @@ const login = async (req, res) => {
     }
 }
 
-module.exports = { register, login };
+const adminLogin = async(req, res) => {
+    try {
+        const {adminEmail, adminPassword} = req.body;
+        if (!adminEmail && !adminPassword) {
+            return res.send({msg: "Both email and password are required"});
+        }
+        if (adminEmail === process.env.ADMIN_EMAIL && adminPassword === process.env.ADMIN_PASSWORD) {
+            const token = await jwt.sign(adminEmail+adminPassword, process.env.SECRET_KEY);
+            return res.status(200).send({msg: "Login successful, welcome", token});
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({msg: "Internal Server Error"});
+    }
+}
+
+module.exports = { register, login, adminLogin };

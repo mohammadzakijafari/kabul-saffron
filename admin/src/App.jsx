@@ -5,12 +5,16 @@ import AddProduct from './pages/AddProduct';
 import Orders from './pages/Orders';
 import Sidebar from './components/Sidebar';
 import ProductList from './pages/ProductList';
+import Login from './components/Login';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
 
   return (
   <div className='min-h-screen'>
+    <ToastContainer />
     <Navbar />
     <hr />
     <div className='flex w-full'>
@@ -21,6 +25,7 @@ function App() {
             <Route path='/add-product' element={<AddProduct />} />
             <Route path='/product-list' element={<ProductList />} />
             <Route path='/orders' element={<Orders />} />
+            <Route path='/admin' element={<Login />} />
           </Routes>
         </div>
 

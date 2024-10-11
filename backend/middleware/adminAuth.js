@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const verifyAdmin = async (req, res, next) => {
     let headers = req.headers.authorization;
-    // console.log(headers);
+    console.log(headers);
     // console.log(headers);
     if (headers) {
         let adminToken = headers.split(" ")[1];

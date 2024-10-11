@@ -53,12 +53,13 @@ const login = async (req, res) => {
 
 const adminLogin = async(req, res) => {
     try {
-        const {adminEmail, adminPassword} = req.body;
-        if (!adminEmail && !adminPassword) {
+        const {email, password} = req.body;
+        console.log(`Email -------- ${email} Password ----------- ${password}`);
+        if (!email && !password) {
             return res.send({msg: "Both email and password are required"});
         }
-        if (adminEmail === process.env.ADMIN_EMAIL && adminPassword === process.env.ADMIN_PASSWORD) {
-            const token = await jwt.sign(adminEmail+adminPassword, process.env.SECRET_KEY);
+        if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+            const token = await jwt.sign(email+password, process.env.SECRET_KEY);
             return res.status(200).send({msg: "Login successful, welcome", token});
         }
     } catch (error) {

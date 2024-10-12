@@ -133,4 +133,16 @@ const userOrders = async(req, res) => {
     }
 }
 
-module.exports = { placeOrderCashPayment, placeOrderStripe, userOrders, verifyStripe };
+
+/* ----------------------- Getting All orders -------------------------- */
+const getAllPaymentOrders = async (req, res) => {
+    try {
+        let orderPayment = await Payment.find();
+        res.status(200).send(orderPayment);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({msg: "Internal Server Error"});
+    }
+}
+
+module.exports = { placeOrderCashPayment, placeOrderStripe, userOrders, verifyStripe, getAllPaymentOrders };

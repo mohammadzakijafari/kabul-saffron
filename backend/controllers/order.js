@@ -52,17 +52,6 @@ const createOrder = async (req, res) => {
     }
 };
 
-/* ----------------------- Getting All orders -------------------------- */
-const getAllOrders = async (req, res) => {
-    try {
-        let orders = await Order.find();
-        res.status(200).send(orders);
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({msg: "Internal Server Error"});
-    }
-}
-
 /* ----------------------- Getting Order Count -------------------------- */
 const getOrderCount = async (req, res) => {
     try {
@@ -170,4 +159,4 @@ const updateOrder = async (req, res) => {
       }
 }
 
-module.exports = { createOrder, getAllOrders, getUserOrder, deleteOrder, updateOrder };
+module.exports = { createOrder, getUserOrder, deleteOrder, updateOrder };

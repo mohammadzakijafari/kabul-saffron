@@ -37,20 +37,31 @@ const createOrder = async (req, res) => {
 
         let newOrder = await Order.create(newOrderData);
 
+        // Add the order to the user's order history
+        currentUser.orders.push(newOrder._id);
+        await currentUser.save();
+
         const userCount = await User.findById(user);
         let orderCount = userCount.orders.length;
 
         res.status(200).send({msg: "Order created successfully", newOrder, orderCount: orderCount});
-
-        // Add the order to the user's order history
-        currentUser.orders.push(newOrder._id);
-        await currentUser.save();
 
     } catch (error) {
         console.log(error);
         res.status(500).send({msg: "Internal Server Error"});
     }
 };
+
+/* ----------------------- Getting All orders -------------------------- */
+const getAllOrders = async (req, res) => {
+    try {
+        let orders = await Order.find();
+        res.status(200).send(orders);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({msg: "Internal Server Error"});
+    }
+}
 
 /* ----------------------- Getting Order Count -------------------------- */
 const getOrderCount = async (req, res) => {
@@ -72,14 +83,16 @@ const getOrderCount = async (req, res) => {
 const getUserOrder = async (req, res) => {
     try {
         let user = req.user.id;
+        console.log(user);
        
         const userOrder = await User.findById(user).populate({path: "orders", populate: {path: "products.productId", model: "Product"}});
+        if (!userOrder) {
+            return res.send({msg: "User is not found"});
+        }
         res.status(200).send(userOrder);
         // console.log(userOrder.orders[0].products);
 
-        if (!userOrder) {
-            res.send({msg: "User is not found"});
-        }
+        
         
         // ------------------- For the debugging purpose used ------------------------- 
         // res.send(userOrder);
@@ -157,4 +170,4 @@ const updateOrder = async (req, res) => {
       }
 }
 
-module.exports = { createOrder, getUserOrder, deleteOrder, updateOrder };
+module.exports = { createOrder, getAllOrders, getUserOrder, deleteOrder, updateOrder };

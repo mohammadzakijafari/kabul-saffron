@@ -18,12 +18,13 @@ const Order = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const getOrders = async() => {
+  const getOrders = async() => { 
     try {
       let res = await axios.get(uri, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setOrder(res.data.orders);
+      console.log(res.data.msg);
     } catch (error) {
       console.log(error);
     }
@@ -39,7 +40,7 @@ const Order = () => {
     const initialTotalPrice = {};
     const initialRegularPrice = {};
 
-    order.forEach((orderItem) => {
+    order?.forEach((orderItem) => {
       initialQuantities[orderItem._id] = orderItem.quantity;
       initialTotalPrice[orderItem._id] = orderItem.totalPrice;
       initialRegularPrice[orderItem._id] = orderItem.products[0]?.productId?.regularPrice;
@@ -116,13 +117,14 @@ const Order = () => {
       setLoading(false);
     }
   }
+  console.log(order);
 
   return (
     <div className='container mx-auto p-4 w-full'>
       <SectionTitle text1={'YOUR'} text2={'CART'} />
 
       <div className=''>
-        {order.length > 0 ? (
+        {Array.isArray(order) && order?.length > 0 ? (
           order.map((orderItem, index) => {
             const productDetail = orderItem.products[0];
 

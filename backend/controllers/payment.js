@@ -145,4 +145,16 @@ const getAllPaymentOrders = async (req, res) => {
     }
 }
 
-module.exports = { placeOrderCashPayment, placeOrderStripe, userOrders, verifyStripe, getAllPaymentOrders };
+/* ----------------------- Updating the order payment status -------------------------- */
+const paymentUpdateStatus = async (req, res) => {
+    try {
+        const { orderPaymentId, paymentStatus } = req. body;
+        const updateStatus = await Payment.findByIdAndUpdate(orderPaymentId, {paymentStatus});
+        res.status(200).send({msg: "Order Status updated successfully", updateStatus});
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({msg: "Internal Server Error"});
+    }
+}
+
+module.exports = { placeOrderCashPayment, placeOrderStripe, userOrders, verifyStripe, getAllPaymentOrders, paymentUpdateStatus };

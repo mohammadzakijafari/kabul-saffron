@@ -148,8 +148,9 @@ const getAllPaymentOrders = async (req, res) => {
 /* ----------------------- Updating the order payment status -------------------------- */
 const paymentUpdateStatus = async (req, res) => {
     try {
-        const { orderPaymentId, paymentStatus } = req. body;
-        const updateStatus = await Payment.findByIdAndUpdate(orderPaymentId, {paymentStatus});
+        const { orderId, paymentStatus } = req. body;
+        console.log(`${paymentStatus} ------------------- ${orderId}`);
+        const updateStatus = await Payment.findByIdAndUpdate(orderId, {paymentStatus});
         res.status(200).send({msg: "Order Status updated successfully", updateStatus});
     } catch (error) {
         console.log(error);

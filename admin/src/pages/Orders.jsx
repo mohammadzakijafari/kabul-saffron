@@ -3,6 +3,7 @@ import axios from 'axios';
 import { GoPackage } from "react-icons/go";
 import { AiOutlineUser, AiOutlineHome, AiOutlineCheckCircle, AiOutlineCreditCard } from "react-icons/ai";
 import { BsCalendarCheck, BsFillBoxFill } from 'react-icons/bs';
+import { toast } from 'react-toastify';
 
 const uri = "http://localhost:3000/payment";
 
@@ -50,7 +51,7 @@ const Orders = () => {
       }, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      console.log('Status updated:', res.data);
+      toast.success(res.data.msg);
     } catch (error) {
       console.log(error);
     }

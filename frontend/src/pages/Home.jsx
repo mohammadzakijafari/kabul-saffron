@@ -7,6 +7,8 @@ import BestSeller from '../components/BestSeller';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import image from '../assets/saffron.jpg';
+import backgroundImage from '../assets/background.jpg';
 
 import image1 from '../assets/hero-image.webp';
 import image2 from '../assets/hero-image1.jpg';
@@ -135,6 +137,131 @@ const Home = () => {
         {/* Featured product List Section */}
         <LatestCollection />
         <BestSeller />
+        
+        {/* Section 1: Introduction with Image and Text */}
+      <div className='flex justify-center items-center h-[100vh]'>
+        <div className='md:w-1/2 w-full flex justify-center items-center'>
+          <img
+            className='w-full md:w-[50%] object-cover rounded-lg shadow-lg'
+            src={image}
+            alt='About Us'
+          />
+        </div>
+        <div className='flex flex-col justify-center items-center md:w-1/2 h-[80vh] bg-gray-100 text-gray-700 text-lg px-4'>
+          <div className='w-full md:w-2/3'>
+            <h2 className='text-5xl font-bold text-black mb-10'>
+              What is Saffron?
+            </h2>
+            <p className='mb-10 leading-relaxed'>
+              Saffron is a spice which is famous for its flavor and color. The
+              three stigmas in Crocus Sativus L. flower a.k.a Saffron flower,
+              form this precious spice. People from all cultures and continents
+              use this ancient spice to enjoy its magnificent bitter taste and
+              fantastic fragrance.
+            </p>
+
+            <button className='bg-red-700 text-white px-6 py-3 rounded-md hover:bg-red-600 transition'>
+              Learn More
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Blurred Background Section with Text */}
+      <div className='relative h-[60vh] w-full'>
+        <div
+          className='absolute inset-0 bg-cover bg-center filter blur-sm'
+          style={{
+            backgroundImage: `url(${backgroundImage})`,
+          }}
+        ></div>
+
+        <div className='relative flex flex-col justify-center items-center h-full text-center px-4'>
+          <h2 className='text-4xl md:text-5xl font-bold text-black mb-6'>
+            Discover the Magic of Saffron
+          </h2>
+          <p className='text-lg md:text-xl text-gray-900 mb-6 leading-relaxed'>
+            Experience the rich flavors and vibrant color of saffron, a spice
+            known for its unmatched quality and versatility.
+          </p>
+
+          <button className='bg-red-600 text-white px-8 py-3 rounded hover:bg-red-500 transition'>
+            Explore Our Products
+          </button>
+        </div>
+      </div>
+
+      {/* Section 2: How Saffron is Used */}
+      <div className='flex flex-col-reverse md:flex-row justify-center items-center h-[100vh]'>
+        <div className='flex flex-col justify-center items-center md:w-1/2 h-[80vh] bg-gray-100 text-gray-700 text-lg px-4'>
+          <div className='w-full md:w-2/3'>
+            <h2 className='text-5xl font-bold text-black mb-10'>
+              How Saffron is Used?
+            </h2>
+            <p className='mb-10 leading-relaxed'>
+              Saffron is diffused into hot or cold water, then typically used
+              in popular dishes for all elements in a five-course meal, also
+              various cold or hot drinks. Paellas, rice, chicken, curries,
+              custards, biscuits, and cakes are among the food that saffron can
+              influence with its golden hue.
+            </p>
+
+            <button className='bg-red-700 text-white px-6 py-3 rounded-md hover:bg-red-600 transition'>
+              Learn More
+            </button>
+          </div>
+        </div>
+
+        <div className='md:w-1/2 w-full flex justify-center items-center'>
+          <img
+            className='w-full md:w-[50%] object-cover rounded-lg shadow-lg'
+            src={image}
+            alt='About Us'
+          />
+        </div>
+      </div>
+
+        {/* <div className='flex justify-center items-center h-[100vh]'>
+          <div className='md:w-1/2 w-full flex justify-center items-center'>
+            <img className='w-full md:w-[50%] object-cover rounded-lg shadow-lg' src={image} alt='About Us' />
+          </div>
+          <div className='flex flex-col justify-center items-center md:w-1/2 h-[80vh] bg-gray-100 text-gray-700 text-lg px-4'>
+            <div className='w-full md:w-2/3'>
+              <h2 className='text-5xl font-bold text-black mb-10'> What is Saffron? </h2>
+              <p className='mb-10 leading-relaxed'>
+              Saffron is a spice which is famous for its flavor and color. The three stigmas in Crocus Sativus L. flower a.k.a Saffron flower, 
+              form this precious spice. People from all cultures and continents use this ancient spice to enjoy its magnificent bitter taste and 
+              fantastic fragrance.
+              </p>
+
+              
+              <button className='bg-red-700 text-white px-6 py-3 rounded-md hover:bg-red-600 transition'>
+                Learn More
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className='flex justify-center items-center h-[100vh]'>
+          <div className='flex flex-col justify-center items-center md:w-1/2 h-[80vh] bg-gray-100 text-gray-700 text-lg px-4'>
+              <div className='w-full md:w-2/3'>
+                <h2 className='text-5xl font-bold text-black mb-10'> How Saffron is used? </h2>
+                <p className='mb-10 leading-relaxed'>
+                Saffron is diffused into hot or cold water, then typically used in popular dishes for all of the elements in a five course meal and 
+                also various cold or hot drinks. Paellas, rice, chicken, curries, custards, biscuits and cakes are among the food that saffron can 
+                influence with its golden hue.
+                </p>
+
+                
+                <button className='bg-red-700 text-white px-6 py-3 rounded-md hover:bg-red-600 transition'>
+                  Learn More
+                </button>
+              </div>
+            </div>
+          <div className='md:w-1/2 w-full flex justify-center items-center'>
+            <img className='w-full md:w-[50%] object-cover rounded-lg shadow-lg' src={image} alt='About Us' />
+          </div>
+        </div> */}
 
         {/* <div className='text-center mb-10 mt-28'>
           <h1 className='text-5xl'> Featured Collection </h1>

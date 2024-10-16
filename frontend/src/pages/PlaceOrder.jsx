@@ -125,39 +125,13 @@ const PlaceOrder = () => {
             console.log("Connection to Server Problem");
         }
 
-        // try {
-        //     let formData = new FormData();
-        //     formData.append("orderItems", JSON.stringify(orderItems));
-        //     formData.append("amount", subTotal);
-        //     formData.append("paymentMethod", "cash");
-        //     formData.append("firstName", orderPayment.firstName);
-        //     formData.append("lastName", orderPayment.lastName);
-        //     formData.append("email", orderPayment.email);
-        //     formData.append("address", `${orderPayment.street}, ${orderPayment.zipCode}, ${orderPayment.country}`);
-        //     formData.append("phone", orderPayment.phone);
-        //     // Log the formData content
-        //     for (let pair of formData.entries()) {
-        //         console.log(`${pair[0]}: ${pair[1]}`);
-        //     }
-        //     // console.log(formData);
-        //     let res = await axios.post(`${paymentUri}/cash`, formData, {
-        //         headers: { Authorization: `Bearer ${token}`,
-        //         'Content-Type': 'multipart/form-data'}
-        //     });
-        //     alert(res.data.msg);
-        //     console.log(res.data);
-            
-        // } catch (error) {
-        //     console.log(error);
-        //     console.log("Connection to Server Problem");
-        // }
     }
   return (
     <div className='flex gap-20 pt-20 p-5 sm:pt-14 min-h-[80vh] border-top mx-20'>
         {/* ----------------------------- Left Side ----------------------------- */}
         <form className='flex flex-col gap-10 w-full'>
-            <div className='text-xl sm:text-2xl my-3'>
-                <SectionTitle text1={'DELIVERY'} text2={"INFORMATION"} />
+            <div className='text-xl sm:text-2xl my-5'>
+                <p className='text-4xl'> DELIVERY INFORMATION </p>
             </div>
             <div className='flex gap-3'>
                 <input 
@@ -226,11 +200,10 @@ const PlaceOrder = () => {
 
         {/* ----------------------------- Right Side ----------------------------- */}
         <div className='w-full mt-10'>
-            <div className='mt-8 min-w-80'>
+            <div className='min-w-80'>
                 <div className='w-full'>
-                    <div className='text-3xl'>
-                        <SectionTitle text1={'CART'} text2={'TOTAL'} />
-
+                    <div className='mb-8'>
+                        <p className='text-4xl'> CART TOTAL </p>
                     </div>
 
                     <div className='flex flex-col gap-2 mt-2 text-lg'>
@@ -252,9 +225,9 @@ const PlaceOrder = () => {
                 </div>
                 {/* <Cart /> */}
             </div>
-            <div className='mt-12'>
+            <div className=''>
                 {/* --------------------------- Payment Method Selection ----------------------------- */}
-                <SectionTitle text1={"PAYMENT"} text2={"METHOD"} />
+                <p className='my-12 text-4xl'> PAYMENT METHODS </p>
                 <div className='flex flex-col gap-3 lg:flex-row'>
                     <div onClick={() => setMethod('stripe')} className='flex items-center gap-3 border p-2 px-3 cursor-pointer'>
                         <p className = {`min-w-4 h-4 border rounded-full ${method === 'stripe' ? 'bg-green-500' : ''}`}></p>

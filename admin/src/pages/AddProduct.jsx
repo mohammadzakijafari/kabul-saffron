@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { FaCloudUploadAlt } from "react-icons/fa";
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const uri = "http://localhost:3000/products";
 
 const AddProduct = () => {
+    let token = localStorage.getItem("token");
     // Declaring state variable for each image
     const [image1, setImage1] = useState("");
     const [image2, setImage2] = useState("");
@@ -46,8 +48,10 @@ const AddProduct = () => {
             image2 && formData.append("image2", image2);
             image3 && formData.append("image3", image3);
             image4 && formData.append("image4", image4);
-            let res = await axios.post(`${uri}/create`, formData);
-            alert(res.data.msg);
+            let res = await axios.post(`${uri}/create`, formData, {
+                headers: { Authorization: `Bearer ${token}`}
+            });
+            toast.success(res.data.msg);
             console.log(res.data);
             formData = "";
         } catch (error) {

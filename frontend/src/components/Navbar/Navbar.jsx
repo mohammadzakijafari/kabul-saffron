@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import { IoSearchOutline } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
-import { FaCartArrowDown } from "react-icons/fa";
+import { FaCartArrowDown, FaBars, FaTimes } from "react-icons/fa";
 import { ProductContext } from '../../context/ProductContext';
 
 const Navbar = () => {
@@ -23,9 +23,17 @@ const Navbar = () => {
         navigate("/login");
     }
 
+    // State for mobile menu visibility
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
     // State to manage the visibility of the user menu
     const [menuVisible, setMenuVisible] = useState(false);
-    // Function to toggle the user menu
+
+    // Function to toggle the mobile menu
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
     const toggleMenu = () => {
         setMenuVisible(!menuVisible);
     };
@@ -105,15 +113,17 @@ const Navbar = () => {
     <nav className='bg-red-700 border-b border-red-500 shadow-lg'>
         <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
             <div className='flex h-20 items-center justify-between'>
+                {/* Logo */}
                 <div className='flex items-center'>
                     <NavLink to='/' className='flex items-center'>
-                        <img className='h-10 w-auto' src={logo} alt='React Jobs' />
+                        <img className='h-14 w-auto rounded-full' src={logo} alt='Logo' />
                         <span className='hidden md:block text-white text-2xl font-bold ml-2'>
                             Kabul Zaffron
                         </span>
                     </NavLink>
                 </div>
 
+                {/* Desktop Menu */}
                 <div className='hidden md:flex space-x-8'>
                     {token ? (
                         <>
@@ -127,12 +137,23 @@ const Navbar = () => {
                     ) : (
                         <>
                             <NavLink to='/' className={linkClass}>HOME</NavLink>
-                            <NavLink to='/sign-up' className={linkClass}>SIGN IN</NavLink>
+                            <NavLink to='/products' className={linkClass}>PRODUCTS</NavLink>
+                            <NavLink to='/recipe' className={linkClass}>RECIPE</NavLink>
+                            <NavLink to='/about-us' className={linkClass}>ABOUT US</NavLink>
+                            <NavLink to='/contact' className={linkClass}>CONTACT US</NavLink>
+                            {/* <NavLink to='/sign-up' className={linkClass}>SIGN IN</NavLink> */}
                         </>
                     )}
                 </div>
 
-                {/* User Profile, Search and Cart Section */}
+                {/* Mobile Menu Button */}
+                <div className='md:hidden flex items-center'>
+                    <button onClick={toggleMobileMenu} className='text-white'>
+                        {isMobileMenuOpen ? <FaTimes size={30} /> : <FaBars size={30} />}
+                    </button>
+                </div>
+
+                {/* User Profile, Search, Cart */}
                 <div className='flex items-center gap-4'>
                     <IoSearchOutline size={30} color='white' className='cursor-pointer hover:text-red-300 transition' />
                     <div className='relative group'>
@@ -150,11 +171,36 @@ const Navbar = () => {
                     <NavLink to='/orders' className='relative'>
                         <FaCartArrowDown size={30} color='white' />
                         {orderCount > 0 && (
-                            <p className='absolute right-[-5px] bottom-[-5px] w-6 text-center leading-6 bg-black text-white rounded-full text-xs'> {orderCount} </p>
+                            <p className='absolute right-[-5px] bottom-[-5px] w-6 text-center leading-6 bg-black text-white rounded-full text-xs'>
+                                {orderCount}
+                            </p>
                         )}
                     </NavLink>
                 </div>
             </div>
+
+            {/* Mobile Menu */}
+            {isMobileMenuOpen && (
+                <div className='md:hidden'>
+                    <div className='flex flex-col space-y-4 mt-4'>
+                        {token ? (
+                            <>
+                                <NavLink to='/' className={linkClass} onClick={toggleMobileMenu}>HOME</NavLink>
+                                <NavLink to='/products' className={linkClass} onClick={toggleMobileMenu}>PRODUCTS</NavLink>
+                                <NavLink to='/recipe' className={linkClass} onClick={toggleMobileMenu}>RECIPE</NavLink>
+                                <NavLink to='/about-us' className={linkClass} onClick={toggleMobileMenu}>ABOUT US</NavLink>
+                                <NavLink to='/contact' className={linkClass} onClick={toggleMobileMenu}>CONTACT US</NavLink>
+                                <NavLink to='/login' className={linkClass} onClick={() => { toggleMobileMenu(); handleLogout(); }}>LOG OUT</NavLink>
+                            </>
+                        ) : (
+                            <>
+                                <NavLink to='/' className={linkClass} onClick={toggleMobileMenu}>HOME</NavLink>
+                                <NavLink to='/sign-up' className={linkClass} onClick={toggleMobileMenu}>SIGN IN</NavLink>
+                            </>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     </nav>
   )

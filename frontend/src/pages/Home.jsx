@@ -176,11 +176,11 @@ const Home = () => {
           }}
         ></div>
 
-        <div className='relative flex flex-col justify-center items-center h-full text-center px-4'>
-          <h2 className='text-4xl md:text-5xl font-bold text-black mb-6'>
+        <div className='relative flex flex-col pt-32 items-center h-full text-center px-4'>
+          <h2 className='text-4xl md:text-5xl font-bold text-red-700 mb-6'>
             Discover the Magic of Saffron
           </h2>
-          <p className='text-lg md:text-xl text-gray-900 mb-6 leading-relaxed'>
+          <p className='text-lg md:text-xl text-red-700 mb-6 leading-relaxed'>
             Experience the rich flavors and vibrant color of saffron, a spice
             known for its unmatched quality and versatility.
           </p>

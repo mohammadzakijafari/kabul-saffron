@@ -16,7 +16,7 @@ const verifyAdmin = async (req, res, next) => {
             next();
         }
     } else {
-        return res.send({msg: "Token is not found"});
+        return res.send({msg: "User is not logged in"});
     }
 }
 

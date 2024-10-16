@@ -30,7 +30,7 @@ const productSchema = new mongoose.Schema(
     productFeature: {
         type: String,
         required: true,
-        enum: ["featured", "bestSeller", "firstQuality", "secondQuality"], // You can add more types
+        enum: ["featured", "best-seller", "first-quality", "second-quality"], // You can add more types
       },
     images: {
       type: [String],

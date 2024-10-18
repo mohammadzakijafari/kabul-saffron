@@ -72,6 +72,7 @@ const PlaceOrder = () => {
             productName: orderItem?.products[0]?.productId?.productName,
             quantity: orderItem.quantity,
             totalPrice: orderItem.totalPrice,
+            regularPrice: orderItem?.products[0]?.productId?.regularPrice,
         });
 
         productsId.push({
@@ -79,7 +80,7 @@ const PlaceOrder = () => {
         });
         productsName.push({
             productName: orderItem?.products[0]?.productId?.productName
-        })
+        });
     });
     // console.log(orderItems);
     // console.log(productsId);

@@ -132,6 +132,7 @@ const Navbar = () => {
                             <NavLink to='/recipe' className={linkClass}>RECIPE</NavLink>
                             <NavLink to='/about-us' className={linkClass}>ABOUT US</NavLink>
                             <NavLink to='/contact' className={linkClass}>CONTACT US</NavLink>
+                            <NavLink to='/check-order' className={linkClass}> Orders </NavLink>
                             <NavLink to='/login' className={linkClass} onClick={handleLogout}>LOG OUT</NavLink>
                         </>
                     ) : (
@@ -141,7 +142,7 @@ const Navbar = () => {
                             <NavLink to='/recipe' className={linkClass}>RECIPE</NavLink>
                             <NavLink to='/about-us' className={linkClass}>ABOUT US</NavLink>
                             <NavLink to='/contact' className={linkClass}>CONTACT US</NavLink>
-                            {/* <NavLink to='/sign-up' className={linkClass}>SIGN IN</NavLink> */}
+                            <NavLink to='/sign-up' className={linkClass}> SIGN UP </NavLink>
                         </>
                     )}
                 </div>

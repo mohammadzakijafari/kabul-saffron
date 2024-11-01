@@ -1,6 +1,6 @@
 import React from 'react'
 import SectionTitle from '../components/SectionTitle'
-import AboutImage from '../assets/saffron.jpg';
+import AboutImage from '../assets/hero-image3.jpg'
 
 const About = () => {
   return (

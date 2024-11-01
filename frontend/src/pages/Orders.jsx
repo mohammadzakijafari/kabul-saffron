@@ -4,8 +4,9 @@ import SectionTitle from '../components/SectionTitle';
 import { MdDeleteForever } from "react-icons/md";
 import { toast } from 'react-toastify';
 import Cart from './Cart';
+import { backendUrl } from '../App';
 
-const uri = "http://localhost:3000/orders";
+// const uri = "http://localhost:3000/orders";
 
 const Orders = () => {
 
@@ -17,7 +18,7 @@ const Orders = () => {
 
   const getOrders = async() => {
     try {
-      let res = await axios.get(uri, {
+      let res = await axios.get(`${backendUrl}/orders`, {
         headers: { Authorization: `Bearer ${token}`}
       });
       setOrder(res.data.orders);
@@ -43,7 +44,7 @@ const Orders = () => {
   async function handleDeleteOrder (deleteId) {
     try {
       if (window.confirm("Are you sure? You want to remove the order")) {
-        let res = await axios.post(`${uri}/delete/${deleteId}`, deleteId, {
+        let res = await axios.post(`${backendUrl}/orders/delete/${deleteId}`, deleteId, {
           headers: {Authorization: `Bearer ${token}`}
         });
         toast.success(res.data.msg);

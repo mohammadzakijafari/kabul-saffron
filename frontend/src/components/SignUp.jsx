@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { backendUrl } from '../App';
 
-const uri = "http://localhost:3000/users";
+// const uri = "http://localhost:3000/users";
 
 const SignUp = () => {
     let [user, setUser] = useState({ username: "", email: "", password: "" });
@@ -17,7 +18,7 @@ const SignUp = () => {
     // handling user click to register
     function handleSignUp (e) {
         e.preventDefault();
-        axios.post(`${uri}/register`, user)
+        axios.post(`${backendUrl}/users/register`, user)
             .then((res) => {
                 alert("Sign Up Successful");
                 navigate("/login");

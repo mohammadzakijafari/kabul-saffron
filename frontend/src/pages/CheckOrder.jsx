@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import SectionTitle from '../components/SectionTitle'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { backendUrl } from '../App';
 
-const uri = "http://localhost:3000/payment";
+// const uri = "http://localhost:3000/payment";
 
 const CheckOrder = () => {
     let token = localStorage.getItem("token");
@@ -57,7 +58,7 @@ const CheckOrder = () => {
     
     const getOrders = async() => {
         try {
-            let res = await axios.post(`${uri}/userorders`, {}, {
+            let res = await axios.post(`${backendUrl}/payment/userorders`, {}, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setOrderPayment(res.data.orderPayment);

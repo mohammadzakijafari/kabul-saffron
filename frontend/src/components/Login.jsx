@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { backendUrl } from '../App';
 
-const uri = "http://localhost:3000/users";
+// const uri = "http://localhost:3000/users";
 
 const Login = () => {
     let [user, setUser] = useState({ email: "", password: "" });
@@ -18,7 +19,7 @@ const Login = () => {
     function handleLogin (e) {
         e.preventDefault();
 
-        axios.post(`${uri}/login`, user)
+        axios.post(`${backendUrl}/users/login`, user)
             .then((res) => {
                 alert("Login Successful, Welcome");
                 console.log(res.data);

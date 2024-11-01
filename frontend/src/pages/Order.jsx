@@ -5,8 +5,9 @@ import { MdDeleteForever } from "react-icons/md";
 import { toast } from 'react-toastify';
 import Cart from './Cart';
 import { useNavigate } from 'react-router-dom';
+import { backendUrl } from '../App';
 
-const uri = "http://localhost:3000/orders";
+// const uri = "http://localhost:3000/orders";
 
 const Order = () => {
   let token = localStorage.getItem("token");
@@ -20,7 +21,7 @@ const Order = () => {
 
   const getOrders = async() => { 
     try {
-      let res = await axios.get(uri, {
+      let res = await axios.get(`${backendUrl}/orders`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setOrder(res.data.orders);
@@ -71,7 +72,7 @@ const Order = () => {
   async function handleDeleteOrder (deleteId) {
     try {
       if (window.confirm("Are you sure? You want to remove the order")) {
-        let res = await axios.post(`${uri}/delete/${deleteId}`, deleteId, {
+        let res = await axios.post(`${backendUrl}/orders/delete/${deleteId}`, deleteId, {
           headers: { Authorization: `Bearer ${token}` }
         });
         toast.success(res.data.msg);
@@ -105,7 +106,7 @@ const Order = () => {
     // ------------------ Make API call to update quantity in the backend ----------------------------
     try {
       setLoading(true);
-      await axios.put(`${uri}/update/${orderId}`, {quantity: newQuantity, totalPrice: newTotalPrice }, {
+      await axios.put(`${backendUrl}/orders/update/${orderId}`, {quantity: newQuantity, totalPrice: newTotalPrice }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success("Quantity and Total Price updated successfully");

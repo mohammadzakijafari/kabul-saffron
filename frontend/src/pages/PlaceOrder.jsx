@@ -7,9 +7,10 @@ import { FaCcMastercard } from "react-icons/fa";
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { backendUrl } from '../App';
 
-const uri = "http://localhost:3000/orders";
-const paymentUri = "http://localhost:3000/payment";
+// const uri = "http://localhost:3000/orders";
+// const paymentUri = "http://localhost:3000/payment";
 
 const PlaceOrder = () => {
     let token = localStorage.getItem("token");
@@ -40,7 +41,7 @@ const PlaceOrder = () => {
 
     const getOrders = async() => {
         try {
-          let res = await axios.get(uri, {
+          let res = await axios.get(`${backendUrl}/orders`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           setOrder(res.data.orders);
@@ -98,7 +99,7 @@ const PlaceOrder = () => {
         try {
             switch(method) {
                 case 'cod':
-                    let res = await axios.post(`${paymentUri}/cash`, newOrderPayment, {
+                    let res = await axios.post(`${backendUrl}/payment/cash`, newOrderPayment, {
                         headers: { Authorization: `Bearer ${token}`}
                     });
                     toast.success(res.data.msg);
@@ -106,7 +107,7 @@ const PlaceOrder = () => {
                     console.log(res.data);
                     break;
                 case 'stripe':
-                    const resStripe = await axios.post(`${paymentUri}/stripe`, newOrderPayment, {
+                    const resStripe = await axios.post(`${backendUrl}/payment/stripe`, newOrderPayment, {
                         headers: { Authorization: `Bearer ${token}`}
                     });
                     if (resStripe.data.success) {

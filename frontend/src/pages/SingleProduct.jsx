@@ -5,8 +5,9 @@ import { FaStar } from "react-icons/fa";
 import { FaStarHalfAlt } from "react-icons/fa";
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { backendUrl } from '../App';
 
-const uri = "http://localhost:3000/orders/create";
+// const uri = "http://localhost:3000/orders/create";
 
 const SingleProduct = () => {
     const { id } = useParams();
@@ -45,7 +46,7 @@ const SingleProduct = () => {
     
         setLoading(true);
         try {
-          const res = await axios.post(uri, orderData, { headers: { Authorization: `Bearer ${token}` } });
+          const res = await axios.post(`${backendUrl}/orders/create`, orderData, { headers: { Authorization: `Bearer ${token}` } });
           toast.success(res.data.msg);
           setOrderCount(res.data.orderCount);
         } catch (error) {

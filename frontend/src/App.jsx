@@ -22,6 +22,9 @@ import Contact from './pages/Contact';
 import Footer from './components/Footer/Footer';
 import VerifyStripe from './pages/VerifyStripe';
 
+export const backendUrl = import.meta.env.VITE_BACKEND_URL
+console.log(backendUrl);
+
 function App() {
 
   return (

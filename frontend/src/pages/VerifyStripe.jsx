@@ -2,8 +2,9 @@ import axios from 'axios';
 import React, { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { backendUrl } from '../App';
 
-const uri = "http://localhost:3000/payment/verifystripe";
+// const uri = "http://localhost:3000/payment/verifystripe";
 
 const VerifyStripe = () => {
     const token = localStorage.getItem("token");
@@ -20,7 +21,7 @@ const VerifyStripe = () => {
                 return null
             }
 
-            const res = await axios.post(uri, {success, orderId}, {
+            const res = await axios.post(`${backendUrl}/payment/verifystripe`, {success, orderId}, {
                 headers: { Authorization: `Bearer ${token}`}
             });
             if (res.data.success) {

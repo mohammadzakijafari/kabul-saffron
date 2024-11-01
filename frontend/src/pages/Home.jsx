@@ -7,7 +7,7 @@ import BestSeller from '../components/BestSeller';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import image from '../assets/saffron.jpg';
+import image from '../assets/saffron.jpg'
 import backgroundImage from '../assets/background.jpg';
 
 import image1 from '../assets/hero-image.webp';

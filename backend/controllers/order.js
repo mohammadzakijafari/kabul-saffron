@@ -140,7 +140,7 @@ const updateOrder = async (req, res) => {
           {
             $set: {               // Use $set to update both fields
               quantity: quantity,
-              totalPrice: totalPrice
+              totalPrice: totalPrice    
             }
           },
           { new: true } // Return the updated document

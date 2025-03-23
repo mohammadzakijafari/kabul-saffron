@@ -24,7 +24,7 @@ const getSingleProduct = async (req, res) => {
     }
 };
 
-// Creating a Listing to the DB
+// storing product details to DB
 const createProduct = async (req, res) => {
     try {
         const {
@@ -62,13 +62,6 @@ const createProduct = async (req, res) => {
             isAvailable,
             images: imageUrl,
         }
-        // console.log("Images ------", imageUrl);
-        // console.log(req.user.id);
-        // let addedBy = req.user.id;
-        // let CompleteProductData = {
-        //     ...clientData,
-        //     addedBy
-        // };
         let newProduct = await Product.create(productData);
         res.status(200).send({ msg: "New Product Created Successfully", newProduct });
     } catch (error) {
